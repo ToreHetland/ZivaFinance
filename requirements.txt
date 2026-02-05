@@ -1,4 +1,6 @@
 streamlit==1.53.1
+supabase
+postgrest
 pandas
 plotly
 sqlalchemy
