@@ -1,4 +1,29 @@
+# macOS system files
+._*
+.DS_Store
+
+# Virtual Environment
 .venv/
+env/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local Databases (Moving to Supabase)
+*.db
+*.db-shm
+*.db-wal
+
+# Backups and redundant files
+_backup_*/
+backups/
+requirements1.txt
+
+# Streamlit secrets (NEVER push this to GitHub)
+.streamlit/secrets.toml.venv/
 __pycache__/
 .streamlit/secrets.toml
 *.pyc
