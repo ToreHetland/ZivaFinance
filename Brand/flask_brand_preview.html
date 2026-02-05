@@ -1,0 +1,49 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My Finance — Brand Preview</title>
+    <style>
+:root {
+  --mf-blue: #007BFF;
+  --mf-green: #00B894;
+  --mf-navy: #1B263B;
+  --mf-white: #FAFAFA;
+  --mf-gold: #FFD54F;
+  --mf-gradient: linear-gradient(90deg, #007BFF 0%, #00B894 100%);
+  --mf-font-head: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mf-font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html, body { background: var(--mf-white); color: var(--mf-navy); font-family: var(--mf-font-body); }
+.mf-container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+.mf-hero-wordmark { font-family: var(--mf-font-head); font-weight: 800; font-size: 56px; line-height:1.1; background:linear-gradient(90deg, #007BFF 0%, #00B894 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+.mf-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border:1px solid rgba(0,0,0,0.1); border-radius:12px; background:#fff; color:var(--mf-navy); font-weight:600; cursor:pointer; transition: border-color .15s, box-shadow .15s, transform .02s; }
+.mf-btn:hover { border-color: rgba(0,0,0,0.18); box-shadow:0 6px 16px rgba(0,0,0,0.06); }
+.mf-btn:active { transform: translateY(1px); }
+.mf-btn-primary { background: var(--mf-gradient); color:#fff; border:none; }
+.mf-card { background:#fff; border:1px solid rgba(0,0,0,0.06); border-radius:16px; padding:18px; }
+.mf-kpi { display:flex; align-items:baseline; gap:8px; font-family: var(--mf-font-head); }
+.mf-kpi .value { font-size:28px; font-weight:700; }
+.mf-kpi .label { font-size:13px; opacity:.75; font-weight:500; }
+.mf-pill { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background: rgba(0,0,0,0.04); font-weight:600; color: var(--mf-navy); }
+.mf-divider { height:1px; background: rgba(0,0,0,0.06); margin:18px 0; }
+</style>
+  </head>
+  <body>
+    <div class="mf-container">
+      <div class="mf-card">
+        <div class="mf-hero-wordmark">My Finance</div>
+        <div>Clarity. Control. Confidence.</div>
+      </div>
+      <div class="mf-card" style="margin-top:16px;">
+        <button class="mf-btn mf-btn-primary">Add Expense</button>
+        <button class="mf-btn">AI Insight</button>
+        <button class="mf-btn">Forecast</button>
+        <button class="mf-btn">Reports</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "last_user_name": "Tore Hetland",
+  "language": "no",
+  "theme": "Ziva Silver",
+  "ai_persona": "Wall Street Analyst",
+  "budget_alert_threshold": 70,
+  "analytics_excluded_categories": [
+    "Norwegian Visa",
+    "Unknown"
+  ],
+  "user_name": "Tore Hetland"
+}

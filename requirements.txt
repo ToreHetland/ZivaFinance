@@ -1,0 +1,11 @@
+streamlit==1.53.1
+pandas
+plotly
+sqlalchemy
+psycopg2-binary
+passlib==1.7.4
+bcrypt==3.2.3
+google-genai
+Pillow
+python-dateutil
+openpyxl

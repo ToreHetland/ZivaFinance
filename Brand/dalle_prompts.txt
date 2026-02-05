@@ -1,0 +1,22 @@
+﻿
+# My Finance – DALL·E Prompts (Professional Minimalism)
+
+## 1) Logo (main identity)
+Create a minimalist logo for a personal-finance and AI-insights app called "My Finance".
+Symbolize clarity, control, and trust — e.g., an upward arc, bar-chart, or abstract coin.
+Use a subtle gradient blue (#007BFF) to green (#00B894) on a white background.
+Typography: Poppins SemiBold. Style: modern fintech, flat and professional.
+
+## 2) App Icon
+Create a circular app icon for "My Finance" showing a stylized rising line or bar graph in blue-green gradient.
+White background, no text, minimal glow.
+
+## 3) Dashboard Interface
+Design a modern dashboard for "My Finance" with widgets for Budget Overview, AI Forecast, Spending by Category, and Goals.
+Use white background, blue-green accents, rounded cards, subtle shadows.
+Typography Poppins/Inter. Clean, professional fintech style.
+
+## 4) Buttons & Icons
+Design a cohesive set of buttons and line icons for "My Finance".
+Buttons: rounded corners, minimal shadows, blue-green gradient for primary actions, white with navy text for secondary actions.
+Icons: flat, white on gradient or navy on white.

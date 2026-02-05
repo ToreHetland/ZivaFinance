@@ -1,0 +1,491 @@
+id,date,type,account,category,payee,amount,description,user_id
+1,2026-01-20T00:00:00,Expense,Brukskonto,Household,ELKJØP ,83.3,20.01 ELKJØP SLEPENDE PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+2,2026-01-20T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,32860.71,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 20.01.26",Tore Hetland
+3,2026-01-20T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SLE,122.93,20.01 VITUSAPOTEK SLE PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+5,2026-01-20T00:00:00,Expense,Brukskonto,Household,Avarn Security,345.34,Til: Avarn Security AS Betalt: 20.01.26,Tore Hetland
+6,2026-01-20T00:00:00,Expense,Brukskonto,Household,Extra,264.82,20.01 EXTRA SLEPENDEN PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+7,2026-01-20T00:00:00,Expense,Brukskonto,Household,Jula,697.0,20.01 JULA SANDVIKA EYVIND LYCHE SANDVIKA,Tore Hetland
+8,2026-01-20T00:00:00,Expense,Brukskonto,Household,BIT SANDVIKA,136.0,20.01 BIT SANDVIKA ST KIRKEVEIEN 6 OSLO,Tore Hetland
+9,2026-01-20T00:00:00,Income,Brukskonto,Lønn,Ikea,60470.93,Lønn fra IKEA AS,Tore Hetland
+10,2026-01-19T00:00:00,Income,Brukskonto,Household,Tore Hetland,605.0,"Fra: Tore Hetland Betalt: 19.01.26
+Innbetaling",Tore Hetland
+11,2026-01-16T00:00:00,Expense,Brukskonto,Household,Tatiana Romero,605.0,Til: Tatiana Romero Hetland,Tore Hetland
+12,2026-01-15T00:00:00,Expense,Brukskonto,Household,Nicole Romero,49.0,Til: Nicole Romero Hetland,Tore Hetland
+13,2026-01-15T00:00:00,Expense,Brukskonto,Household,Jula,179.8,15.01 JULA SANDVIKA EYVIND LYCHE SANDVIKA,Tore Hetland
+14,2026-01-15T00:00:00,Expense,Brukskonto,Household,BANK NORWEGIAN,578.0,Til: BANK NORWEGIAN AS Betalt: 15.01.26,Tore Hetland
+15,2026-01-15T00:00:00,Expense,Brukskonto,Household,Nille,224.94,15.01 NILLE 160 HOLME VOGELLUND 6  NESBRU,Tore Hetland
+16,2026-01-15T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,2564.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.01.26,Tore Hetland
+17,2026-01-15T00:00:00,Expense,Brukskonto,Household,Normal,33.0,15.01 NORMAL NESBRU VOGELLUND 6  NESBRU,Tore Hetland
+18,2026-01-14T00:00:00,Expense,Brukskonto,Lege,SANDVIKA LEGESE,235.0,14.01 SANDVIKA LEGESE ENGERVANNSVE SANDVIKA,Tore Hetland
+19,2026-01-14T00:00:00,Expense,Brukskonto,Household,Temu,264.0,*1687 13.01 NOK 264.00 Temu.com Kurs: 1.0000,Tore Hetland
+20,2026-01-14T00:00:00,Expense,Brukskonto,Household,Temu,427.0,*1687 13.01 NOK 427.00 Temu.com Kurs: 1.0000,Tore Hetland
+21,2026-01-14T00:00:00,Expense,Brukskonto,Household,Temu,215.0,*1687 13.01 NOK 215.00 Temu.com Kurs: 1.0000,Tore Hetland
+22,2026-01-14T00:00:00,Expense,Brukskonto,Household,AUTOSYNC AS,379.8,Til: AUTOSYNC AS Betalt: 14.01.26,Tore Hetland
+23,2026-01-13T00:00:00,Income,Brukskonto,Household,Overføring fra,600.0,Fra: Rossana Carolina Hetland Betalt: 13.01.26,Tore Hetland
+24,2026-01-13T00:00:00,Expense,Brukskonto,Household,Ikea,46.0,13.01 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+25,2026-01-12T00:00:00,Expense,Brukskonto,Household,Kiwi,347.06,12.01 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+26,2026-01-12T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SAN,669.32,09.01 VITUSAPOTEK SAN LEIF TRONSTA SANDVIKA,Tore Hetland
+27,2026-01-12T00:00:00,Expense,Brukskonto,Household,Kiwi,1068.99,10.01 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+28,2026-01-12T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,30.0,10.01 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+29,2026-01-12T00:00:00,Expense,Brukskonto,Household,Extra,34.9,10.01 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+30,2026-01-12T00:00:00,Expense,Brukskonto,Household,Extra,115.69,09.01 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+31,2026-01-12T00:00:00,Expense,Brukskonto,Household,SANDVIKA FRUKT,324.0,11.01 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+32,2026-01-07T00:00:00,Expense,Brukskonto,Household,SANDVIKA FRUKT,59.7,07.01 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+33,2026-01-07T00:00:00,Expense,Brukskonto,Household,Overføring til,500.0,Til: 9365.43.37002 Betalt: 07.01.26,Tore Hetland
+34,2026-01-07T00:00:00,Expense,Brukskonto,Household,LANDKRED.BANK (93659400535),545.0,202544827,Tore Hetland
+35,2026-01-06T00:00:00,Expense,Brukskonto,Household,Kiwi,475.4,06.01 KIWI 389 VØYENE VØYENENGTUNE VØYENENGA,Tore Hetland
+36,2026-01-05T00:00:00,Expense,Brukskonto,Household,Cutters AS,1125.0,*9016 03.01 NOK 1125.00 Vipps*Cutters AS Kurs: 1.0000,Tore Hetland
+37,2026-01-05T00:00:00,Expense,Brukskonto,Bil,CIRCLE K,598.0,03.01 CIRCLE K SANDVI HAMANGSKOGEN SANDVIKA,Tore Hetland
+38,2026-01-05T00:00:00,Expense,Brukskonto,Mat,Extra,1097.65,02.01 EXTRA SLEPENDEN PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+39,2026-01-02T00:00:00,Income,Brukskonto,Diverse,Nicole Romero,450.0,"Fra: Nicole Romero Hetland Betalt: 01.01.26
+Internett",Tore Hetland
+40,2026-01-02T00:00:00,Expense,Brukskonto,Gaver,Til konto:,376.0,Til: 9490.06.05441 Betalt: 01.01.26,Tore Hetland
+41,2026-01-02T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1645.0,Til: IF SKADEFORSIKRING NUF Betalt: 01.01.26,Tore Hetland
+42,2026-01-02T00:00:00,Expense,Brukskonto,Household,Kid,35.94,02.01 KID 47136 BILLI PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+43,2026-01-02T00:00:00,Expense,Brukskonto,Household,Temu,1033.0,*9016 01.01 NOK 1033.00 Temu.com Kurs: 1.0000,Tore Hetland
+44,2026-01-02T00:00:00,Expense,Brukskonto,Dog,MUSTI PUSTUTVEIEN,298.9,02.01 MUSTI PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+45,2026-01-02T00:00:00,Expense,Brukskonto,Household,CLAS OHL,199.7,02.01 CLAS OHL 2886 PUSTUTV 6-14 BILLINGSTAD,Tore Hetland
+46,2025-12-31T00:00:00,Expense,Brukskonto,Household,MOVA AS,316.0,*1687 30.12 NOK 316.00 Vipps*MOVA AS Kurs: 1.0000,Tore Hetland
+47,2025-12-31T00:00:00,Expense,Brukskonto,Household,CLAS OHL,358.9,30.12 CLAS OHL 2886 PUSTUTV 6-14 BILLINGSTAD,Tore Hetland
+48,2025-12-31T00:00:00,Expense,Brukskonto,Household,Normal,156.0,30.12 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+49,2025-12-30T00:00:00,Expense,Brukskonto,Household,Kid,129.9,30.12 KID 47069 SANDV BRODTKORBSGA SANDVIKA,Tore Hetland
+50,2025-12-30T00:00:00,Expense,Brukskonto,Mat,Meny,288.61,30.12 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+51,2025-12-30T00:00:00,Expense,Brukskonto,Subscription,Budstikka,1.0,*9016 29.12 NOK 1.00 Vipps*Budstikka. Kurs: 1.0000,Tore Hetland
+52,2025-12-30T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,170.45,30.12 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+53,2025-12-29T00:00:00,Expense,Brukskonto,Mat,Kiwi,498.43,29.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+54,2025-12-29T00:00:00,Expense,Brukskonto,Household,42 PLANTASJEN,844.05,29.12 42 PLANTASJEN JOHS. HAUGER RUD,Tore Hetland
+55,2025-12-29T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,419.6,29.12 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+56,2025-12-29T00:00:00,Expense,Brukskonto,Mat,Extra,61.1,23.12 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+57,2025-12-29T00:00:00,Expense,Brukskonto,Mat,BAKER HANSEN,43.0,24.12 BAKER HANSEN AV RÅDMANN HALM SANDVIKA,Tore Hetland
+58,2025-12-29T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",209.1,"Til: OneCall, TELIA NORGE AS Betalt: 26.12.25",Tore Hetland
+59,2025-12-29T00:00:00,Expense,Brukskonto,Mat,Extra,318.59,27.12 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+60,2025-12-23T00:00:00,Expense,Brukskonto,Household,BURGER KING,98.0,23.12 BURGER KING SLE SLEPENDVEIEN BILLINGSTAD,Tore Hetland
+61,2025-12-23T00:00:00,Expense,Brukskonto,Household,Normal,44.0,22.12 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+62,2025-12-23T00:00:00,Expense,Brukskonto,Mat,Meny,491.3,23.12 MENY SLEPENDEN  SLEPENDVEIEN BILLINGSTAD,Tore Hetland
+63,2025-12-22T00:00:00,Expense,Brukskonto,Subscription,Avarn Security,328.9,Til: Avarn Security AS Betalt: 21.12.25,Tore Hetland
+64,2025-12-22T00:00:00,Expense,Brukskonto,Household,Jula,548.5,21.12 JULA SANDVIKA EYVIND LYCHE SANDVIKA,Tore Hetland
+65,2025-12-22T00:00:00,Expense,Brukskonto,Mat,Kiwi,1041.07,20.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+66,2025-12-22T00:00:00,Expense,Brukskonto,Mat,Rema,169.4,19.12 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+67,2025-12-22T00:00:00,Expense,Brukskonto,Household,Nicole Romero,50.0,*1687 19.12 NOK 50.00 Vipps*Nicole Romero Hetla Kurs: 1.0000,Tore Hetland
+68,2025-12-22T00:00:00,Income,Brukskonto,Husleie,Yana Shakhovska,15750.0,"Fra: Yana Shakhovska Betalt: 22.12.25
+Rent",Tore Hetland
+69,2025-12-19T00:00:00,Expense,Brukskonto,Gaver,Nicole Handelsbanken,1500.0,Til: 9490.06.28204 Betalt: 19.12.25,Tore Hetland
+70,2025-12-19T00:00:00,Expense,Brukskonto,Mat,Extra,30.4,19.12 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+71,2025-12-19T00:00:00,Expense,Brukskonto,Mat,Rema,576.11,19.12 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+72,2025-12-19T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,44336.06,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 19.12.25",Tore Hetland
+73,2025-12-19T00:00:00,Expense,Brukskonto,Mat,Meny,76.5,19.12 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+74,2025-12-19T00:00:00,Expense,Brukskonto,Mat,Kiwi,193.8,19.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+75,2025-12-19T00:00:00,Expense,Brukskonto,Gaver,Madeleine (94900664243),2000.0,Til: Madeleine Betalt: 19.12.25,Tore Hetland
+76,2025-12-19T00:00:00,Expense,Brukskonto,Gaver,Theodore (94900708968),2000.0,Til: Theodore Betalt: 19.12.25,Tore Hetland
+77,2025-12-19T00:00:00,Expense,Brukskonto,Apotek,Apotek,211.7,19.12 APOTEK SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+78,2025-12-19T00:00:00,Expense,Brukskonto,Mat,Rema,160.5,19.12 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+79,2025-12-19T00:00:00,Income,Brukskonto,Lønn,Ikea,102185.41,Lønn fra IKEA AS,Tore Hetland
+80,2025-12-19T00:00:00,Expense,Brukskonto,Vann&Kloakk,Bærum kommune,1760.63,Til: Bærum kommune Betalt: 19.12.25,Tore Hetland
+81,2025-12-19T00:00:00,Expense,Brukskonto,Household,CLAS OHL,359.7,19.12 CLAS OHL 2829 BRODTKORBSG. SANDVIKA,Tore Hetland
+82,2025-12-18T00:00:00,Expense,Brukskonto,Mat,Extra,231.15,17.12 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+83,2025-12-17T00:00:00,Expense,Brukskonto,Mat,Bunnpris,424.6,16.12 BUNNPRIS DR.HØSTS VEI GJETTUM,Tore Hetland
+84,2025-12-17T00:00:00,Expense,Brukskonto,Mat,Meny,36.84,17.12 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+85,2025-12-17T00:00:00,Expense,Brukskonto,Household,KITCHN SANDVIKA,29.0,17.12 KITCHN SANDVIKA STORSENTER,Tore Hetland
+86,2025-12-17T00:00:00,Expense,Brukskonto,Household,Ikea,18.0,17.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+87,2025-12-17T00:00:00,Expense,Brukskonto,Utilities:Strøm,Gudbrandsdal Energi,2215.34,Til: Gudbrandsdal Energi As Betalt: 17.12.25,Tore Hetland
+88,2025-12-17T00:00:00,Expense,Brukskonto,Household,Normal,20.0,17.12 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+89,2025-12-17T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,17.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+90,2025-12-16T00:00:00,Expense,Brukskonto,Household,Netonnet,528.0,*9016 15.12 NOK 528.00 Vipps*NETONNET Kurs: 1.0000,Tore Hetland
+91,2025-12-15T00:00:00,Expense,Brukskonto,Mat,Extra,510.33,13.12 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+92,2025-12-15T00:00:00,Expense,Brukskonto,Norwegian Visa,BANK NORWEGIAN,8569.91,Til: BANK NORWEGIAN AS Betalt: 15.12.25,Tore Hetland
+93,2025-12-15T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,2364.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.12.25,Tore Hetland
+94,2025-12-12T00:00:00,Expense,Brukskonto,Mat,Joker,69.9,12.12 Joker  ELIAS SMITHS SANDVIKA,Tore Hetland
+95,2025-12-12T00:00:00,Expense,Brukskonto,Mat,Kiwi,434.7,11.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+96,2025-12-12T00:00:00,Expense,Brukskonto,Household,Temu,441.0,*1687 11.12 NOK 441.00 Temu.com Kurs: 1.0000,Tore Hetland
+97,2025-12-12T00:00:00,Expense,Brukskonto,Household,FINN Google,491.0,*9016 11.12 NOK 491.00 FINN Google Nest Mini Kurs: 1.0000,Tore Hetland
+98,2025-12-12T00:00:00,Expense,Brukskonto,Mat,MENY,885.84,*9016 10.12 NOK 885.84 Vipps*MENY Levert hjem Os Kurs: 1.0000,Tore Hetland
+99,2025-12-11T00:00:00,Expense,Brukskonto,Subscription,TELENOR NORGE,3147.0,Til: TELENOR NORGE AS TV/BREDBÅND Betalt: 11.12.25,Tore Hetland
+100,2025-12-11T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,69.9,11.12 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+101,2025-12-11T00:00:00,Expense,Brukskonto,Apotek,APOTEK 1,394.8,11.12 APOTEK 1 SANDVI BRODTKORBSGT SANDVIKA,Tore Hetland
+102,2025-12-11T00:00:00,Expense,Brukskonto,Household,MEDINA ENGROS,19.9,11.12 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+103,2025-12-11T00:00:00,Expense,Brukskonto,Mat,Kiwi,529.1,11.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+104,2025-12-10T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,10.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+105,2025-12-09T00:00:00,Expense,Brukskonto,Minibank,Loomis ATM,516.0,09.12 Loomis ATM Sandvika  12:05 2 8293,Tore Hetland
+106,2025-12-09T00:00:00,Expense,Brukskonto,Household,Ikea,20.0,09.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+107,2025-12-08T00:00:00,Expense,Brukskonto,Mat,Kiwi,656.44,08.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+108,2025-12-08T00:00:00,Expense,Brukskonto,Mat,Kiwi,394.81,06.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+109,2025-12-08T00:00:00,Expense,Brukskonto,Household,LYRECO NORGE,340.0,06.12 LYRECO NORGE AV BILLINGSTADS BILLINGSTAD,Tore Hetland
+110,2025-12-05T00:00:00,Expense,Brukskonto,Mat,Extra,612.51,04.12 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+111,2025-12-03T00:00:00,Expense,Brukskonto,Household,Ikea,25.0,03.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+112,2025-12-03T00:00:00,Expense,Brukskonto,Mat,Kiwi,801.98,02.12 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+113,2025-12-02T00:00:00,Expense,Brukskonto,Household,Ikea,793.05,02.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+114,2025-12-02T00:00:00,Expense,Brukskonto,Mat,Rema,144.72,01.12 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+115,2025-12-01T00:00:00,Expense,Brukskonto,Mat,Kiwi,760.37,29.11 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+116,2025-12-01T00:00:00,Expense,Brukskonto,Household,Ikea,20.0,01.12 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+117,2025-12-01T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1645.0,Til: IF SKADEFORSIKRING NUF Betalt: 01.12.25,Tore Hetland
+118,2025-12-01T00:00:00,Expense,Brukskonto,Taxi,Bolt,808.0,*9016 29.11 NOK 808.00 BOLT.EU/O/2511291412 Kurs: 1.0000,Tore Hetland
+119,2025-11-30T00:00:00,Income,Brukskonto,Husleie,Yana Shakhovska,15750.0,"Fra: Yana Shakhovska Betalt: 28.11.25
+Rent",Tore Hetland
+120,2025-11-30T00:00:00,Expense,Brukskonto,Gaver,Alex (12248929772),2350.0,Til: 1224.89.29772 Betalt: 28.11.25,Tore Hetland
+121,2025-11-27T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",209.0,"Til: OneCall, TELIA NORGE AS Betalt: 27.11.25",Tore Hetland
+122,2025-11-21T00:00:00,Expense,Brukskonto,Utilities:Strøm,Gudbrandsdal Energi,1745.62,Til: Gudbrandsdal Energi As Betalt: 21.11.25,Tore Hetland
+123,2025-11-21T00:00:00,Expense,Brukskonto,Gaver,Til konto:,7000.0,Hundepass,Tore Hetland
+124,2025-11-20T00:00:00,Income,Brukskonto,Lønn,Ikea,73185.93,Lønn fra IKEA AS,Tore Hetland
+125,2025-11-20T00:00:00,Expense,Brukskonto,Subscription,Avarn Security,328.9,Til: Avarn Security AS Betalt: 20.11.25,Tore Hetland
+126,2025-11-20T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,34927.34,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 20.11.25",Tore Hetland
+127,2025-11-20T00:00:00,Expense,Brukskonto,Vann&Kloakk,Bærum kommune,1760.63,Til: Bærum kommune Betalt: 20.11.25,Tore Hetland
+128,2025-11-17T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,3547.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.11.25,Tore Hetland
+129,2025-11-17T00:00:00,Expense,Brukskonto,Norwegian Visa,BANK NORWEGIAN,4187.7,Til: BANK NORWEGIAN AS Betalt: 15.11.25,Tore Hetland
+130,2025-11-06T00:00:00,Expense,Brukskonto,Taxi,Bolt,1116.0,*9016 05.11 NOK 1116.00 BOLT.EU/O/2511050644 Kurs: 1.0000,Tore Hetland
+131,2025-11-04T00:00:00,Expense,Brukskonto,Household,FACE IT,1420.0,*1687 03.11 NOK 1420.00 Vipps*FACE IT AS Kurs: 1.0000,Tore Hetland
+132,2025-11-03T00:00:00,Expense,Brukskonto,Household,MEDINA ENGROS,46.52,02.11 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+133,2025-11-03T00:00:00,Expense,Brukskonto,Mat,Extra,567.7,03.11 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+134,2025-11-03T00:00:00,Expense,Brukskonto,Mat,Kiwi,357.1,03.11 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+135,2025-11-03T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,220.0,03.11 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+136,2025-11-03T00:00:00,Expense,Brukskonto,Mat,Extra,896.7,01.11 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+137,2025-11-03T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1645.0,Til: IF SKADEFORSIKRING NUF Betalt: 01.11.25,Tore Hetland
+138,2025-11-03T00:00:00,Income,Brukskonto,Diverse,Nicole Romero,450.0,"Fra: Nicole Romero Hetland Betalt: 01.11.25
+Internett",Tore Hetland
+139,2025-11-03T00:00:00,Expense,Brukskonto,Household,KREATIV CATERING,4695.0,Til: KREATIV CATERING Betalt: 01.11.25,Tore Hetland
+140,2025-11-03T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SLE,105.4,03.11 VITUSAPOTEK SLE PUSTUTVEIEN  BILLINGSTAD,Tore Hetland
+141,2025-10-31T00:00:00,Expense,Brukskonto,Mat,Rema,31.9,31.10 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+142,2025-10-30T00:00:00,Expense,Brukskonto,Mat,Kiwi,283.0,30.10 KIWI 389 VØYENE VØYENENGTUNE VØYENENGA,Tore Hetland
+143,2025-10-29T00:00:00,Expense,Brukskonto,Household,IKEA,1047.2,*9016 28.10 NOK 1047.20 Vipps*IKEA Netthandel Kurs: 1.0000,Tore Hetland
+144,2025-10-29T00:00:00,Expense,Brukskonto,Household,Jula,398.6,29.10 JULA SANDVIKA EYVIND LYCHE SANDVIKA,Tore Hetland
+145,2025-10-29T00:00:00,Expense,Brukskonto,Mat,Kiwi,142.0,29.10 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+146,2025-10-29T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,354.4,29.10 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+147,2025-10-27T00:00:00,Income,Brukskonto,Husleie,Yana Shakhovska,5750.0,"Fra: Yana Shakhovska Betalt: 25.10.25
+Innbetaling",Tore Hetland
+148,2025-10-27T00:00:00,Expense,Brukskonto,Mat,Extra,262.39,25.10 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+149,2025-10-27T00:00:00,Expense,Brukskonto,Mat,EXTRA HØVIK,477.16,27.10 EXTRA HØVIK SANDVIKSVEIE HØVIK,Tore Hetland
+150,2025-10-27T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",211.39,"Til: OneCall, TELIA NORGE AS Betalt: 26.10.25",Tore Hetland
+151,2025-10-27T00:00:00,Expense,Brukskonto,Household,Temu,785.0,*9016 25.10 NOK 785.00 Temu.com Kurs: 1.0000,Tore Hetland
+152,2025-10-23T00:00:00,Expense,Brukskonto,Household,Temu,640.0,23.10 VETERINÆRDEG AS MØLLERLØKKA  VØYENENGA,Tore Hetland
+153,2025-10-22T00:00:00,Expense,Brukskonto,Household,Temu,72.7,21.10 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+154,2025-10-22T00:00:00,Expense,Brukskonto,Household,Temu,289.96,22.10 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+155,2025-10-21T00:00:00,Expense,Brukskonto,Household,Temu,691.0,20.10 LYRECO NORGE AV BILLINGSTADS BILLINGSTAD,Tore Hetland
+156,2025-10-20T00:00:00,Expense,Brukskonto,Vann&Kloakk,Temu,1760.63,Til: Bærum kommune Betalt: 18.10.25,Tore Hetland
+157,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,147.6,18.10 JOKER SANDVIKA  ELIAS SMITHS SANDVIKA,Tore Hetland
+158,2025-10-20T00:00:00,Incom2,Brukskonto,Lønn,Temu,59609.93,Lønn fra IKEA AS,Tore Hetland
+159,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,75.0,"*1687 17.10 NOK 75.00 Vipps*Vestre Viken HF, po Kurs: 1.0000",Tore Hetland
+160,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,548.0,18.10 SIMSIM HONG AS  ELIAS SMITHS SANDVIKA,Tore Hetland
+161,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,172.65,20.10 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+162,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,69.9,18.10 JULA SANDVIKA EYVIND LYCHE SANDVIKA,Tore Hetland
+163,2025-10-20T00:00:00,Expense,Brukskonto,Transfer,Temu,35155.99,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 20.10.25",Tore Hetland
+164,2025-10-20T00:00:00,Expense,Brukskonto,Subscription,Temu,140.0,Til: MOVA AS Betalt: 20.10.25,Tore Hetland
+165,2025-10-20T00:00:00,Expense,Brukskonto,Subscription,Temu,328.9,Til: Avarn Security AS Betalt: 20.10.25,Tore Hetland
+166,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,250.9,18.10 GUTTA FRA HAVET WILLY GREINE SANDVIKA,Tore Hetland
+167,2025-10-20T00:00:00,Expense,Brukskonto,Household,Temu,74.7,17.10 KIWI 386 DRAGVE DRAGV 25 HØVIK,Tore Hetland
+168,2025-10-17T00:00:00,Expense,Brukskonto,Gaver,Temu,1000.0,Til: 9490.06.28204 Betalt: 17.10.25,Tore Hetland
+169,2025-10-17T00:00:00,Expense,Brukskonto,Utilities:Strøm,Temu,1333.42,Til: Gudbrandsdal Energi As Betalt: 17.10.25,Tore Hetland
+170,2025-10-17T00:00:00,Expense,Brukskonto,Household,Temu,95.7,17.10 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+171,2025-10-17T00:00:00,Expense,Brukskonto,Household,Temu,571.5,16.10 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+172,2025-10-16T00:00:00,Expense,Brukskonto,Household,Temu,114.7,15.10 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+173,2025-10-16T00:00:00,Expense,Brukskonto,Household,Temu,889.0,16.10 VETERINÆRDEG AS MØLLERLØKKA  VØYENENGA,Tore Hetland
+174,2025-10-16T00:00:00,Expense,Brukskonto,Household,Temu,85.8,15.10 HOANG ASIA MAT  LEIF TRONSTA SANDVIKA,Tore Hetland
+175,2025-10-16T00:00:00,Expense,Brukskonto,Household,Temu,64.0,15.10 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+176,2025-10-15T00:00:00,Expense,Brukskonto,Household,Temu,110.0,15.10 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+177,2025-10-15T00:00:00,Expense,Brukskonto,Forsikring,Temu,1219.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.10.25,Tore Hetland
+178,2025-10-15T00:00:00,Expense,Brukskonto,Household,Temu,600.0,15.10 BRYN GARTNERI A ØKRIVEIEN 2  RYKKINN,Tore Hetland
+179,2025-10-15T00:00:00,Expense,Brukskonto,Norwegian Visa,Temu,600.09,Til: BANK NORWEGIAN AS Betalt: 15.10.25,Tore Hetland
+180,2025-10-14T00:00:00,Expense,Brukskonto,Household,Temu,184.47,14.10 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+181,2025-10-13T00:00:00,Expense,Brukskonto,Household,Temu,412.0,*9016 11.10 NOK 412.00 Temu.com Kurs: 1.0000,Tore Hetland
+182,2025-10-13T00:00:00,Expense,Brukskonto,Household,Temu,459.77,13.10 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+183,2025-10-13T00:00:00,Expense,Brukskonto,Household,Temu,610.0,13.10 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+184,2025-10-13T00:00:00,Expense,Brukskonto,Household,Temu,92.9,11.10 REMA BILLINGSTA BILLINGSTADS BILLINGSTAD,Tore Hetland
+185,2025-10-13T00:00:00,Expense,Brukskonto,Household,Temu,718.1,11.10 EUROPRIS BILLINGSTADS BILLINGSTAD,Tore Hetland
+186,2025-10-13T00:00:00,Expense,Brukskonto,Household,Temu,351.3,11.10 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+187,2025-10-10T00:00:00,Expense,Brukskonto,Subscription,Temu,29.0,Til: TELENOR NORGE AS TV/BREDBÅND Betalt: 10.10.25,Tore Hetland
+188,2025-10-09T00:00:00,Expense,Brukskonto,Household,Temu,299.5,09.10 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+189,2025-10-09T00:00:00,Expense,Brukskonto,Household,Temu,470.22,09.10 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+190,2025-10-08T00:00:00,Expense,Brukskonto,Household,Temu,505.0,*1687 07.10 NOK 505.00 Temu Kurs: 1.0000,Tore Hetland
+191,2025-10-08T00:00:00,Expense,Brukskonto,Household,Temu,308.0,*1687 07.10 NOK 308.00 Temu Kurs: 1.0000,Tore Hetland
+192,2025-10-08T00:00:00,Expense,Brukskonto,Household,Temu,286.0,*1687 07.10 NOK 286.00 Temu Kurs: 1.0000,Tore Hetland
+193,2025-10-07T00:00:00,Expense,Brukskonto,Household,MEDINA ENGROS,34.9,07.10 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+194,2025-10-06T00:00:00,Expense,Brukskonto,Household,Normal,114.0,06.10 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+195,2025-10-06T00:00:00,Expense,Brukskonto,Mat,Rema,78.6,03.10 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+196,2025-10-06T00:00:00,Expense,Brukskonto,Minibank,Loomis ATM,516.0,06.10 Loomis ATM Sandvika  14:05 2 1603,Tore Hetland
+197,2025-10-02T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,813.1,01.10 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+198,2025-10-01T00:00:00,Expense,Brukskonto,Household,MEDINA ENGROS,59.22,30.09 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+199,2025-10-01T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,57.13,01.10 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+200,2025-10-01T00:00:00,Expense,Brukskonto,Mat,Kiwi,184.6,01.10 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+201,2025-10-01T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1645.0,Til: IF SKADEFORSIKRING NUF Betalt: 01.10.25,Tore Hetland
+202,2025-09-30T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SAN,105.4,29.09 VITUSAPOTEK SAN LEIF TRONSTA SANDVIKA,Tore Hetland
+203,2025-09-30T00:00:00,Expense,Brukskonto,Mat,Meny,468.51,30.09 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+204,2025-09-30T00:00:00,Expense,Brukskonto,Mat,HOANG ASIA,19.9,29.09 HOANG ASIA MAT  LEIF TRONSTA SANDVIKA,Tore Hetland
+205,2025-09-30T00:00:00,Expense,Brukskonto,Bil,MØLLER VEST,638000.0,Til: MØLLER VEST AS Betalt: 30.09.25,Tore Hetland
+206,2025-09-29T00:00:00,Expense,Brukskonto,Mat,Extra,81.87,27.09 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+207,2025-09-29T00:00:00,Expense,Brukskonto,Household,MEDINA ENGROS,44.9,27.09 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+208,2025-09-29T00:00:00,Expense,Brukskonto,Apotek,Apotek,185.0,27.09 APOTEK SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+209,2025-09-29T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,77.8,27.09 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+210,2025-09-29T00:00:00,Expense,Brukskonto,Mat,Bunnpris,117.94,29.09 BUNNPRIS DR.HØSTS VEI GJETTUM,Tore Hetland
+211,2025-09-26T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",266.59,"Til: OneCall, TELIA NORGE AS Betalt: 26.09.25",Tore Hetland
+212,2025-09-26T00:00:00,Incom2,Brukskonto,Diverse,Mette Marie,8000.0,fra mette,Tore Hetland
+213,2025-09-26T00:00:00,Expense,Brukskonto,Gaver,Til konto:,5.0,Til: 9490.06.05441 Betalt: 26.09.25,Tore Hetland
+214,2025-09-25T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,62.77,25.09 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+215,2025-09-25T00:00:00,Expense,Brukskonto,Household,Farmasiet AS,321.9,*9016 22.09 NOK 321.90 Vipps*Farmasiet AS Kurs: 1.0000,Tore Hetland
+216,2025-09-24T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,13.68,24.09 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+217,2025-09-24T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,191.62,23.09 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+218,2025-09-24T00:00:00,Expense,Brukskonto,Mat,Kiwi,404.75,24.09 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+219,2025-09-23T00:00:00,Expense,Brukskonto,Mat,Meny,412.35,23.09 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+220,2025-09-23T00:00:00,Expense,Brukskonto,Household,KANEL STEINOVNS,52.0,23.09 KANEL STEINOVNS BRODTKORPSGA SANDVIKA,Tore Hetland
+221,2025-09-23T00:00:00,Expense,Brukskonto,Household,Normal,168.0,23.09 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+222,2025-09-22T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,23063.24,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 20.09.25",Tore Hetland
+223,2025-09-22T00:00:00,Expense,Brukskonto,Mat,BAKER HANSEN,39.0,22.09 BAKER HANSEN AV RÅDMANN HALM SANDVIKA,Tore Hetland
+224,2025-09-22T00:00:00,Expense,Brukskonto,Mat,Extra,29.9,20.09 EXTRA SANDVIKA  SANDVIKSVEIE SANDVIKA,Tore Hetland
+225,2025-09-22T00:00:00,Expense,Brukskonto,Mat,Kiwi,288.01,22.09 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+226,2025-09-22T00:00:00,Expense,Brukskonto,Subscription,Avarn Security,328.9,Til: Avarn Security AS Betalt: 20.09.25,Tore Hetland
+227,2025-09-22T00:00:00,Expense,Brukskonto,Mat,Extra,125.5,20.09 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+228,2025-09-19T00:00:00,Expense,Brukskonto,Vann&Kloakk,Bærum kommune,1750.93,Til: Bærum kommune Betalt: 19.09.25,Tore Hetland
+229,2025-09-19T00:00:00,Income,Brukskonto,Lønn,Ikea,54349.96,Lønn fra IKEA AS,Tore Hetland
+230,2025-09-18T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,123.8,18.09 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+231,2025-09-17T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,187.6,16.09 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+232,2025-09-17T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,17.09 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+233,2025-09-17T00:00:00,Expense,Brukskonto,Utilities:Strøm,Gudbrandsdal Energi,1118.76,Til: Gudbrandsdal Energi As Betalt: 17.09.25,Tore Hetland
+234,2025-09-17T00:00:00,Expense,Brukskonto,Mat,Kiwi,305.54,16.09 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+235,2025-09-15T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,15.09 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+236,2025-09-15T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,1219.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.09.25,Tore Hetland
+237,2025-09-15T00:00:00,Expense,Brukskonto,Household,Elektroimpoirtør,1198.0,13.09 Elektroimpoirtør BILLINGSTAD,Tore Hetland
+238,2025-09-12T00:00:00,Expense,Brukskonto,Mat,Rema,594.05,12.09 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+239,2025-09-12T00:00:00,Expense,Brukskonto,Mat,Extra,306.44,12.09 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+240,2025-09-12T00:00:00,Income,Brukskonto,Husleie,Linnea Heitmann,15000.0,"Fra: Linnea Heitmann Betalt: 12.09.25
+Leie",Tore Hetland
+241,2025-09-10T00:00:00,Expense,Brukskonto,Subscription,TELENOR NORGE,3176.0,Til: TELENOR NORGE AS TV/BREDBÅND Betalt: 10.09.25,Tore Hetland
+242,2025-09-10T00:00:00,Expense,Brukskonto,Mat,Meny,330.35,09.09 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+243,2025-09-08T00:00:00,Expense,Brukskonto,Household,PASTA OSTERIA,411.35,*9016 06.09 GEL 106.00 PASTA OSTERIA Kurs: 3.8807,Tore Hetland
+244,2025-09-08T00:00:00,Expense,Brukskonto,Taxi,Bolt,130.01,*9016 07.09 GEL 33.50 Bolt OU Kurs: 3.8809,Tore Hetland
+245,2025-09-08T00:00:00,Expense,Brukskonto,Mat,Kiwi,627.46,08.09 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+246,2025-09-08T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,119.35,08.09 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+247,2025-09-08T00:00:00,Expense,Brukskonto,Taxi,Bolt,59.76,*9016 06.09 GEL 15.40 Bolt OU Kurs: 3.8805,Tore Hetland
+248,2025-09-08T00:00:00,Expense,Brukskonto,Taxi,Bolt,46.57,*9016 05.09 GEL 12.00 Bolt OU Kurs: 3.8808,Tore Hetland
+249,2025-09-08T00:00:00,Expense,Brukskonto,Minibank,Loomis ATM,716.0,08.09 Loomis ATM Sandvika  12:05 2 8612,Tore Hetland
+250,2025-09-08T00:00:00,Expense,Brukskonto,Taxi,Bolt,32.21,*9016 06.09 GEL 8.30 Bolt OU Kurs: 3.8807,Tore Hetland
+251,2025-09-08T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,795.54,*9016 06.09 GEL 205.00 ATM TBC-565 (AGMASH ST 61 Kurs: 3.8807,Tore Hetland
+252,2025-09-08T00:00:00,Expense,Brukskonto,Mat,Rema,211.8,08.09 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+253,2025-09-05T00:00:00,Expense,Brukskonto,Taxi,Bolt,79.92,*9016 03.09 GEL 20.70 Bolt OU Kurs: 3.8609,Tore Hetland
+254,2025-09-05T00:00:00,Expense,Brukskonto,Taxi,Bolt,90.74,*9016 03.09 GEL 23.50 Bolt OU Kurs: 3.8613,Tore Hetland
+255,2025-09-05T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,1155.86,*9016 04.09 GEL 300.00 ATM BB K.TSAMEBULIS 1 Kurs: 3.8529,Tore Hetland
+256,2025-09-05T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,770.57,*9016 04.09 GEL 200.00 ATM BB K.TSAMEBULIS 1 Kurs: 3.8529,Tore Hetland
+257,2025-09-05T00:00:00,Expense,Brukskonto,Taxi,Bolt,45.17,*9016 03.09 GEL 11.70 Bolt OU Kurs: 3.8607,Tore Hetland
+258,2025-09-04T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,791.51,*9016 03.09 GEL 205.00 ATM TBC-1025 RUSTAVELI 44 Kurs: 3.8610,Tore Hetland
+259,2025-09-03T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,1563.71,*9016 03.09 GEL 405.00 ATM TBC-1490 (APKHAZI ST) Kurs: 3.8610,Tore Hetland
+260,2025-09-03T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,1563.71,*9016 03.09 GEL 405.00 ATM TBC-1490 (APKHAZI ST) Kurs: 3.8610,Tore Hetland
+261,2025-09-03T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,1569.83,*9016 03.09 GEL 405.00 ATM TBC-1556 TB. AIRPORT Kurs: 3.8761,Tore Hetland
+262,2025-09-03T00:00:00,Expense,Brukskonto,Ferie,Uttak ATM,1563.71,*9016 03.09 GEL 405.00 ATM TBC-1490 (APKHAZI ST) Kurs: 3.8610,Tore Hetland
+263,2025-09-02T00:00:00,Expense,Brukskonto,Minibank,Loomis ATM,3277.61,02.09 Loomis ATM OSL avg s 10:20 3 195,Tore Hetland
+264,2025-09-01T00:00:00,Expense,Brukskonto,Mat,Kiwi,762.18,30.08 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+265,2025-09-01T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,319.5,30.08 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+266,2025-09-01T00:00:00,Expense,Brukskonto,Household,Normal,38.0,01.09 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+267,2025-09-01T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1654.0,Til: IF SKADEFORSIKRING NUF Betalt: 01.09.25,Tore Hetland
+268,2025-08-31T00:00:00,Expense,Brukskonto,Household,Posten Norge,42.0,*9016 28.08 NOK 42.00 Vipps*Posten Norge AS Pos Kurs: 1.0000,Tore Hetland
+269,2025-08-28T00:00:00,Income,Brukskonto,Husleie,Yana Shakhovska,10000.0,"Fra: Yana Shakhovska Betalt: 28.08.25
+Innbetaling",Tore Hetland
+270,2025-08-28T00:00:00,Expense,Brukskonto,Mat,Extra,71.6,28.08 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+271,2025-08-26T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,26.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+272,2025-08-26T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",209.0,"Til: OneCall, TELIA NORGE AS Betalt: 26.08.25",Tore Hetland
+273,2025-08-25T00:00:00,Expense,Brukskonto,Mat,Joker,30.0,23.08 Joker  ELIAS SMITHS SANDVIKA,Tore Hetland
+274,2025-08-25T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,469.49,24.08 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+275,2025-08-25T00:00:00,Expense,Brukskonto,Household,Betaling pa,1156.0,*9016 24.08 NOK 1156.00 Betaling pa FINN.no Kurs: 1.0000,Tore Hetland
+276,2025-08-25T00:00:00,Expense,Brukskonto,Household,SIMSIM HONG,369.0,23.08 SIMSIM HONG AS  ELIAS SMITHS SANDVIKA,Tore Hetland
+277,2025-08-21T00:00:00,Expense,Brukskonto,Household,Normal,331.0,21.08 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+278,2025-08-20T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,36437.59,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 20.08.25",Tore Hetland
+279,2025-08-20T00:00:00,Expense,Brukskonto,Subscription,Avarn Security,328.9,Til: Avarn Security AS Betalt: 20.08.25,Tore Hetland
+280,2025-08-20T00:00:00,Expense,Brukskonto,Mat,Extra,164.43,19.08 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+281,2025-08-20T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,20.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+282,2025-08-20T00:00:00,Income,Brukskonto,Lønn,Ikea,54354.68,Lønn fra IKEA AS,Tore Hetland
+283,2025-08-20T00:00:00,Expense,Brukskonto,Vann&Kloakk,Bærum kommune,1714.63,Til: Bærum kommune Betalt: 20.08.25,Tore Hetland
+284,2025-08-19T00:00:00,Expense,Brukskonto,Utilities:Strøm,Gudbrandsdal Energi,439.06,Til: Gudbrandsdal Energi As Betalt: 19.08.25,Tore Hetland
+285,2025-08-19T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,19.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+286,2025-08-18T00:00:00,Expense,Brukskonto,Household,Ikea,25.0,18.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+287,2025-08-18T00:00:00,Expense,Brukskonto,Mat,Kiwi,557.39,16.08 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+288,2025-08-18T00:00:00,Expense,Brukskonto,Household,OBS BYGG,402.9,16.08 OBS BYGG BÆRUM  JOHS. HAUGER RUD,Tore Hetland
+289,2025-08-15T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,184.8,15.08 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+290,2025-08-15T00:00:00,Expense,Brukskonto,Mat,Kiwi,328.8,15.08 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+291,2025-08-15T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,187.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.08.25,Tore Hetland
+292,2025-08-13T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,13.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+293,2025-08-13T00:00:00,Expense,Brukskonto,Mat,Kiwi,1132.08,13.08 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+294,2025-08-11T00:00:00,Expense,Brukskonto,Household,Sunkost Sandvik,89.0,09.08 Sunkost Sandvik ØVRE TORV SANDVIKA,Tore Hetland
+295,2025-08-11T00:00:00,Expense,Brukskonto,Subscription,TELENOR NORGE,29.0,Til: TELENOR NORGE AS TV/BREDBÅND Betalt: 10.08.25,Tore Hetland
+296,2025-08-11T00:00:00,Expense,Brukskonto,Household,MEDINA ENGROS,607.28,09.08 MEDINA ENGROS A LØKKETANGEN  SANDVIKA,Tore Hetland
+297,2025-08-11T00:00:00,Expense,Brukskonto,Mat,Rema,77.59,*9016 09.08 NOK 77.59 Vipps*Rema 1000 Sandvika Kurs: 1.0000,Tore Hetland
+298,2025-08-11T00:00:00,Expense,Brukskonto,Mat,BÆRUM KJØTT,139.56,09.08 BÆRUM KJØTT AS  LØKKETANGEN  SANDVIKA,Tore Hetland
+299,2025-08-11T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,11.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+300,2025-08-11T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,129.17,09.08 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+301,2025-08-07T00:00:00,Expense,Brukskonto,Mat,Rema,284.74,07.08 Rema BÆRUMSVEIEN  GJETTUM,Tore Hetland
+302,2025-08-06T00:00:00,Expense,Brukskonto,Lege,SANDVIKA LEGESE,235.0,06.08 SANDVIKA LEGESE ENGERVANNSVE SANDVIKA,Tore Hetland
+303,2025-08-05T00:00:00,Expense,Brukskonto,Household,Ikea,30.0,05.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+304,2025-08-04T00:00:00,Expense,Brukskonto,Mat,Kiwi,147.8,04.08 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+305,2025-08-04T00:00:00,Expense,Brukskonto,Household,Ikea,25.0,04.08 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+306,2025-08-04T00:00:00,Expense,Brukskonto,Mat,Kiwi,762.82,02.08 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+307,2025-08-01T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1228.0,Til: IF SKADEFORSIKRING NUF Betalt: 01.08.25,Tore Hetland
+308,2025-08-01T00:00:00,Expense,Brukskonto,Household,SULZER PUMPS,4000.0,Til: SULZER PUMPS WASTEWATER NORWAY Betalt: 01.08.25,Tore Hetland
+309,2025-07-30T00:00:00,Expense,Brukskonto,Household,Ikea,19.0,30.07 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+310,2025-07-30T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,166.7,30.07 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+311,2025-07-30T00:00:00,Expense,Brukskonto,Mat,Extra,200.03,29.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+312,2025-07-30T00:00:00,Expense,Brukskonto,Household,Ikea,25.0,30.07 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+313,2025-07-29T00:00:00,Expense,Brukskonto,Household,Sandvika Hudklinikk,1490.0,*1687 28.07 NOK 1490.00 Vipps*Sandvika Hudklinikk Kurs: 1.0000,Tore Hetland
+314,2025-07-28T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,59.8,28.07 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+315,2025-07-28T00:00:00,Expense,Brukskonto,Mat,Rema,79.94,28.07 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+316,2025-07-28T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",209.0,"Til: OneCall, TELIA NORGE AS Betalt: 26.07.25",Tore Hetland
+317,2025-07-28T00:00:00,Expense,Brukskonto,Household,Ikea,15.0,28.07 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+318,2025-07-28T00:00:00,Expense,Brukskonto,Apotek,Apotek,122.3,28.07 APOTEK SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+319,2025-07-28T00:00:00,Expense,Brukskonto,Mat,Extra,357.9,26.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+320,2025-07-28T00:00:00,Expense,Brukskonto,Mat,Extra,14.9,28.07 EXTRA SANDVIKA  SANDVIKSVEIE SANDVIKA,Tore Hetland
+321,2025-07-25T00:00:00,Expense,Brukskonto,Mat,Meny,73.86,25.07 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+322,2025-07-25T00:00:00,Expense,Brukskonto,Mat,Joker,23.9,25.07 Joker  ELIAS SMITHS SANDVIKA,Tore Hetland
+323,2025-07-25T00:00:00,Expense,Brukskonto,Apotek,APOTEK 1,292.5,25.07 APOTEK 1 SANDVI BRODTKORBSGT SANDVIKA,Tore Hetland
+324,2025-07-25T00:00:00,Expense,Brukskonto,Mat,Extra,201.6,25.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+325,2025-07-23T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SAN,453.2,23.07 VITUSAPOTEK SAN LEIF TRONSTA SANDVIKA,Tore Hetland
+326,2025-07-23T00:00:00,Expense,Brukskonto,Lege,SANDVIKA LEGESE,435.0,23.07 SANDVIKA LEGESE ENGERVANNSVE SANDVIKA,Tore Hetland
+327,2025-07-23T00:00:00,Expense,Brukskonto,Mat,Kiwi,56.9,23.07 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+328,2025-07-23T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SAN,94.4,23.07 VITUSAPOTEK SAN LEIF TRONSTA SANDVIKA,Tore Hetland
+329,2025-07-22T00:00:00,Expense,Brukskonto,Mat,Kiwi,375.17,22.07 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+330,2025-07-22T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,259.7,22.07 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+331,2025-07-21T00:00:00,Expense,Brukskonto,Utilities:Strøm,Gudbrandsdal Energi,530.21,Til: Gudbrandsdal Energi As Betalt: 21.07.25,Tore Hetland
+332,2025-07-21T00:00:00,Expense,Brukskonto,Mat,Kiwi,126.2,21.07 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+333,2025-07-21T00:00:00,Expense,Brukskonto,Household,Sunkost Sandvik,129.0,21.07 Sunkost Sandvik ØVRE TORV SANDVIKA,Tore Hetland
+334,2025-07-21T00:00:00,Expense,Brukskonto,Household,URMAKER LARSEN,350.0,21.07 URMAKER LARSEN  BRODTKORBSGT SANDVIKA,Tore Hetland
+335,2025-07-21T00:00:00,Expense,Brukskonto,Subscription,Avarn Security,328.9,Til: Avarn Security AS Betalt: 20.07.25,Tore Hetland
+336,2025-07-21T00:00:00,Expense,Brukskonto,Vann&Kloakk,Bærum kommune,1824.71,Til: Bærum kommune Betalt: 19.07.25,Tore Hetland
+337,2025-07-21T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,39.7,21.07 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+338,2025-07-18T00:00:00,Income,Brukskonto,Lønn,Ikea,54353.93,Lønn fra IKEA AS,Tore Hetland
+339,2025-07-18T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,35606.46,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 18.07.25",Tore Hetland
+340,2025-07-17T00:00:00,Expense,Brukskonto,Hunder,VETERINÆRDEG AS,2460.0,16.07 VETERINÆRDEG AS MØLLERLØKKA  VØYENENGA,Tore Hetland
+341,2025-07-17T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,19.9,17.07 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+342,2025-07-17T00:00:00,Expense,Brukskonto,Mat,Kiwi,42.64,17.07 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+343,2025-07-17T00:00:00,Expense,Brukskonto,Household,Sunkost Sandvik,39.0,17.07 Sunkost Sandvik ØVRE TORV SANDVIKA,Tore Hetland
+344,2025-07-16T00:00:00,Expense,Brukskonto,Mat,Extra,311.57,16.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+345,2025-07-16T00:00:00,Expense,Brukskonto,Minibank,Loomis ATM,1321.0,16.07 Loomis ATM Sandvika  14:05 2 2917,Tore Hetland
+346,2025-07-16T00:00:00,Expense,Brukskonto,Household,Ikea,25.0,16.07 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+347,2025-07-15T00:00:00,Expense,Brukskonto,Mat,Rema,133.8,15.07 REMA SANDVIKA CLAUDE MONET SANDVIKA,Tore Hetland
+348,2025-07-15T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,2561.0,Til: STOREBRAND FORSIKRING AS Betalt: 15.07.25,Tore Hetland
+349,2025-07-15T00:00:00,Expense,Brukskonto,Norwegian Visa,BANK NORWEGIAN,909.5,Til: BANK NORWEGIAN AS Betalt: 15.07.25,Tore Hetland
+350,2025-07-14T00:00:00,Expense,Brukskonto,Mat,HOANG ASIA,58.92,12.07 HOANG ASIA MAT  LEIF TRONSTA SANDVIKA,Tore Hetland
+351,2025-07-14T00:00:00,Expense,Brukskonto,Gaver,Til konto:,30000.0,Faktura 2460,Tore Hetland
+352,2025-07-14T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,554.8,12.07 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+353,2025-07-14T00:00:00,Expense,Brukskonto,Household,Normal,76.0,12.07 NORMAL SANDVIKA BRODTKORBSGA SANDVIKA,Tore Hetland
+354,2025-07-11T00:00:00,Expense,Brukskonto,Household,MOVA AS,49.0,*1687 10.07 NOK 49.00 MOVA AS ECOMM Kurs: 1.0000,Tore Hetland
+355,2025-07-10T00:00:00,Expense,Brukskonto,Subscription,TELENOR NORGE,29.0,Til: TELENOR NORGE AS TV/BREDBÅND Betalt: 10.07.25,Tore Hetland
+356,2025-07-08T00:00:00,Expense,Brukskonto,Mat,Extra,283.76,08.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+357,2025-07-07T00:00:00,Expense,Brukskonto,Gaver,Til konto:,500.0,Til: 9680.18.90536 Betalt: 07.07.25,Tore Hetland
+358,2025-07-07T00:00:00,Expense,Brukskonto,Mat,Extra,223.47,05.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+359,2025-07-03T00:00:00,Expense,Brukskonto,Mat,HOANG ASIA,30.0,03.07 HOANG ASIA MAT  LEIF TRONSTA SANDVIKA,Tore Hetland
+360,2025-07-03T00:00:00,Expense,Brukskonto,Mat,Extra,70.09,03.07 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+361,2025-07-02T00:00:00,Expense,Brukskonto,Forsikring,IF SKADEFORSIKRING,1228.0,Til: IF SKADEFORSIKRING NUF Betalt: 02.07.25,Tore Hetland
+362,2025-07-01T00:00:00,Expense,Brukskonto,Household,Clas Ohlson,649.0,*9016 28.06 NOK 649.00 Vipps*Clas Ohlson AS Kurs: 1.0000,Tore Hetland
+363,2025-07-01T00:00:00,Expense,Brukskonto,Lege,SANDVIKA LEGESE,235.0,01.07 SANDVIKA LEGESE ENGERVANNSVE SANDVIKA,Tore Hetland
+364,2025-07-01T00:00:00,Expense,Brukskonto,Apotek,VITUSAPOTEK SAN,448.8,01.07 VITUSAPOTEK SAN LEIF TRONSTA SANDVIKA,Tore Hetland
+365,2025-06-30T00:00:00,Expense,Brukskonto,Household,VINMONOPOLET BÆRUM,339.8,28.06 VINMONOPOLET BÆRUM SANDVIKA,Tore Hetland
+366,2025-06-30T00:00:00,Expense,Brukskonto,Mat,Kiwi,591.34,28.06 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+367,2025-06-30T00:00:00,Expense,Brukskonto,Mat,Kiwi,202.83,30.06 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+368,2025-06-27T00:00:00,Expense,Brukskonto,Household,Jula,49.8,26.06 JULA SANDVIKA EYVIND LYCHE SANDVIKA,Tore Hetland
+369,2025-06-27T00:00:00,Expense,Brukskonto,Household,JYSK BTK,55.0,26.06 JYSK BTK 570 EYVIND LYCKE SANDVIKA,Tore Hetland
+370,2025-06-27T00:00:00,Expense,Brukskonto,Mat,Extra,158.0,27.06 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+371,2025-06-27T00:00:00,Expense,Brukskonto,Mat,SANDVIKA FRUKT,315.0,26.06 SANDVIKA FRUKT  OTTO SVERDRU SANDVIKA,Tore Hetland
+372,2025-06-26T00:00:00,Expense,Brukskonto,Mat,Kiwi,925.47,26.06 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+373,2025-06-26T00:00:00,Expense,Brukskonto,Mat,Meny,184.97,25.06 MENY VØYENENGA  VØYENENGATUN VØYENENGA,Tore Hetland
+374,2025-06-26T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,169.7,26.06 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+375,2025-06-26T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",216.98,"Til: OneCall, TELIA NORGE AS Betalt: 26.06.25",Tore Hetland
+376,2025-06-24T00:00:00,Expense,Brukskonto,Household,Ikea,20.0,24.06 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+377,2025-06-23T00:00:00,Expense,Brukskonto,Vann&Kloakk,Bærum kommune,1824.71,Til: Bærum kommune Betalt: 21.06.25,Tore Hetland
+378,2025-06-23T00:00:00,Expense,Brukskonto,Household,GÅGATEN LEGESEN,59.0,23.06 GÅGATEN LEGESEN RÅDMANN HALM SANDVIKA,Tore Hetland
+379,2025-06-23T00:00:00,Expense,Brukskonto,Subscription,Avarn Security,328.9,Til: Avarn Security AS Betalt: 21.06.25,Tore Hetland
+380,2025-06-23T00:00:00,Expense,Brukskonto,Mat,Kiwi,493.47,21.06 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+381,2025-06-23T00:00:00,Expense,Brukskonto,Household,EUROPRIS SANDVI,424.7,21.06 EUROPRIS SANDVI SANDVIKSVN SANDVIKA,Tore Hetland
+382,2025-06-23T00:00:00,Expense,Brukskonto,Household,CREDICARE AS,1770.0,*9016 20.06 NOK 1770.00 CREDICARE AS Kurs: 1.0000,Tore Hetland
+383,2025-06-20T00:00:00,Expense,Brukskonto,Transfer,SEB KORT,69440.5,"Til: SEB KORT AB, OSLOFIL.NUF Betalt: 20.06.25",Tore Hetland
+384,2025-06-20T00:00:00,Expense,Brukskonto,Mat,Extra,364.62,20.06 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+385,2025-06-20T00:00:00,Income,Brukskonto,Lønn,Ikea,56140.42,Lønn fra IKEA AS,Tore Hetland
+386,2025-06-19T00:00:00,Expense,Brukskonto,Household,Betaling pa,284.0,*9016 18.06 NOK 284.00 Betaling pa FINN.no Kurs: 1.0000,Tore Hetland
+387,2025-06-19T00:00:00,Expense,Brukskonto,Utilities:Strøm,Gudbrandsdal Energi,940.76,Til: Gudbrandsdal Energi As Betalt: 19.06.25,Tore Hetland
+388,2025-06-16T00:00:00,Expense,Brukskonto,Forsikring,STOREBRAND FORSIKRING,2561.0,Til: STOREBRAND FORSIKRING AS Betalt: 16.06.25,Tore Hetland
+389,2025-06-16T00:00:00,Expense,Brukskonto,Household,Betaling pa,1079.0,*9016 13.06 NOK 1079.00 Betaling pa FINN.no Kurs: 1.0000,Tore Hetland
+390,2025-06-16T00:00:00,Expense,Brukskonto,Norwegian Visa,BANK NORWEGIAN,3436.45,Til: BANK NORWEGIAN AS Betalt: 16.06.25,Tore Hetland
+391,2025-06-16T00:00:00,Expense,Brukskonto,Subscription,Dagens Næringsliv,1399.0,Til: Dagens Næringsliv AS Betalt: 16.06.25,Tore Hetland
+392,2025-06-13T00:00:00,Expense,Brukskonto,Mat,Kiwi,1584.81,13.06 KIWI 305 KJØRBO SANDVIKSVEIE SANDVIKA,Tore Hetland
+393,2025-06-11T00:00:00,Expense,Brukskonto,Mat,Extra,301.85,10.06 EXTRA SANDVIKA  LEIF TRONSTA SANDVIKA,Tore Hetland
+394,2025-06-11T00:00:00,Expense,Brukskonto,Mat,Meny,229.9,11.06 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+395,2025-06-11T00:00:00,Expense,Brukskonto,Subscription,TELENOR NORGE,3797.0,Til: TELENOR NORGE AS TV/BREDBÅND Betalt: 11.06.25,Tore Hetland
+396,2025-06-11T00:00:00,Expense,Brukskonto,Household,Ikea,46.0,11.06 IKEA SLEPENDEN  NESBRUVEIEN  BILLINGSTAD,Tore Hetland
+397,2025-06-10T00:00:00,Expense,Brukskonto,Gaver,Alex (12248929772),1000.0,Til: Alex Betalt: 10.06.25,Tore Hetland
+398,2025-06-06T00:00:00,Expense,Brukskonto,Ferie,Uttak H,1216.41,*9016 05.06 NOK 1216.41 H S B C                TI Kurs: 1.0000,Tore Hetland
+399,2025-06-05T00:00:00,Expense,Brukskonto,Ferie,Uttak 15500,1478.61,*9016 04.06 USD 142.50 15500 SAN PASQUAL Kurs: 10.3762,Tore Hetland
+400,2025-06-02T00:00:00,Expense,Brukskonto,Household,MICROPAINT BÆRU,12750.0,30.05 MICROPAINT BÆRU DRONNING MAU OSLO,Tore Hetland
+401,2025-05-26T00:00:00,Expense,Brukskonto,Mobil,"OneCall, TELIA",209.0,"Til: OneCall, TELIA NORGE AS Betalt: 26.05.25",Tore Hetland
+402,2025-05-23T00:00:00,Expense,Brukskonto,Household,Target,2088.49,*9016 22.05 USD 199.30 TARGET        00013268 Kurs: 10.4791,Tore Hetland
+403,2025-05-23T00:00:00,Expense,Brukskonto,Household,CVS/PHARMACY #11104,211.87,*1687 22.05 USD 20.30 CVS/PHARMACY #11104 Kurs: 10.4370,Tore Hetland
+404,2025-05-23T00:00:00,Expense,Brukskonto,Household,T J,938.92,*1687 22.05 USD 89.96 T J MAXX #1458 Kurs: 10.4371,Tore Hetland
+405,2025-05-22T00:00:00,Expense,Brukskonto,Household,WAL-MART #0984,2816.08,*9016 21.05 USD 266.02 WAL-MART #0984 Kurs: 10.5860,Tore Hetland
+406,2025-05-20T00:00:00,Income,Brukskonto,Lønn,Ikea,101780.88,Lønn fra IKEA AS,Tore Hetland
+407,2025-05-16T00:00:00,Expense,Brukskonto,Gaver,Nicole Handelsbanken,5000.0,Iris,Tore Hetland
+408,2025-05-16T00:00:00,Expense,Brukskonto,Household,SIMSIM HONG,369.0,15.05 SIMSIM HONG AS  ELIAS SMITHS SANDVIKA,Tore Hetland
+409,2025-05-16T00:00:00,Expense,Brukskonto,Mat,Kiwi,205.45,16.05 KIWI 341 SANDVI SANDVIKSV. 1 SANDVIKA,Tore Hetland
+410,2025-05-16T00:00:00,Expense,Brukskonto,Household,Vita,29.0,15.05 VITA 1214 SANDV BRODTKORBSGT SANDVIKA,Tore Hetland
+411,2025-05-14T00:00:00,Expense,Brukskonto,Household,KANEL STEINOVNS,190.0,14.05 KANEL STEINOVNS BRODTKORPSGA SANDVIKA,Tore Hetland
+412,2025-05-14T00:00:00,Expense,Brukskonto,Household,Vita,118.3,14.05 VITA 1214 SANDV BRODTKORBSGT SANDVIKA,Tore Hetland
+413,2025-05-14T00:00:00,Expense,Brukskonto,Mat,Meny,110.8,14.05 MENY BRODKORBSGT. SANDVIKA,Tore Hetland
+417,2026-01-20T00:00:00,Income,Saving 62+,Opening Balance,Opening Balance,325000.0,Initial account balance,Tore Hetland
+420,2026-01-20T00:00:00,Expense,Brukskonto,Transfer,To Saving 62+,20000.0,,Tore Hetland
+421,2026-01-20T00:00:00,Income,Saving 62+,Transfer,From Brukskonto,20000.0,,Tore Hetland
+422,2026-01-22T00:00:00,Expense,Brukskonto,Unknown,Kiwi,250.0,Expense at Kiwi,Tore Hetland
+424,2026-01-22T00:00:00,Expense,Saving 62+,Mat,Kiwi,200.0,,Tore Hetland
+436,2026-01-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,,Tore Hetland
+437,2026-02-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,110.0,Auto-settle for SAS Mastercard,Tore Hetland
+439,2026-01-23T00:00:00,Expense,SAS Mastercard,Mat,Kiwi,1000.0,,Tore Hetland
+440,2026-01-23T00:00:00,Expense,SAS Mastercard,Mat,Rema,10.0,,Tore Hetland
+441,2026-02-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,,Tore Hetland
+442,2026-03-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+443,2026-03-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,378.0,Auto-settle for SAS Mastercard,Tore Hetland
+447,2026-01-23T00:00:00,Expense,Norwegian Visa,Mat,kiwi,10.0,,Tore Hetland
+448,2026-01-23T00:00:00,Expense,Norwegian Visa,Food,rema,100.0,,Tore Hetland
+449,2026-01-23T00:00:00,Expense,Norwegian Visa,Mat,kiwi,200.0,,Tore Hetland
+450,2026-02-15T00:00:00,Expense,Brukskonto,Transfer,Settlement: Norwegian Visa,310.0,Auto-settle for Norwegian Visa,Tore Hetland
+451,2026-02-15T00:00:00,Income,Norwegian Visa,Transfer,From Brukskonto,310.0,Auto-settle for Norwegian Visa,Tore Hetland
+452,2026-01-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (1/10),Tore Hetland
+453,2026-02-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (2/10),Tore Hetland
+454,2026-03-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (3/10),Tore Hetland
+455,2026-04-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+456,2026-04-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+457,2026-04-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (4/10),Tore Hetland
+458,2026-05-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+459,2026-05-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+460,2026-05-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (5/10),Tore Hetland
+461,2026-06-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+462,2026-06-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+463,2026-06-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (6/10),Tore Hetland
+464,2026-07-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+465,2026-07-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+466,2026-07-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (7/10),Tore Hetland
+467,2026-08-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+468,2026-08-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+469,2026-08-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (8/10),Tore Hetland
+470,2026-09-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+471,2026-09-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+472,2026-09-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (9/10),Tore Hetland
+473,2026-10-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+474,2026-10-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+475,2026-10-23T00:00:00,Expense,SAS Mastercard,Subscriptions,Netflix,189.0,Recurring (10/10),Tore Hetland
+476,2026-11-20T00:00:00,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+477,2026-11-20T00:00:00,Income,SAS Mastercard,Transfer,From Brukskonto,189.0,Auto-settle for SAS Mastercard,Tore Hetland
+478,2025-10-01T00:00:00,Income,Brukskonto,Balance Adjustment,Manual Correction,40000.0,Reconciled to match bank balance of 10000.0,Tore Hetland
+480,2026-01-26T00:00:00,Expense,Brukskonto,Mat,Sandvika Frukt,71.01,,Tore Hetland
+481,2026-01-24T00:00:00,Expense,Brukskonto,Household,Posten Norge,39.0,,Tore Hetland
+482,2026-01-23T00:00:00,Expense,Brukskonto,Mat,Rema,589.6,,Tore Hetland
+483,2025-10-01T00:00:00,Income,Brukskonto,Balance Adjustment,Manual Correction,635669.4999999999,Reconciled to match bank balance of 40000.0,Tore Hetland
+484,2026-01-20T00:00:00,Income,Brukskonto,Pensjon,Carolina,16500.0,,Tore Hetland
+486,2025-12-15T00:00:00,Income,Brukskonto,Pensjon,Carolina,17500.0,,Tore Hetland
+487,2025-11-20T00:00:00,Income,Brukskonto,Pensjon,Carolina,17000.0,,Tore Hetland
+488,2026-01-01T00:00:00,Expense,Brukskonto,Balance Adjustment,Manual Correction,77665.19999999984,Reconciled to match bank balance of 21584.0,Tore Hetland
+490,2026-01-26T00:00:00,Expense,Brukskonto,Balance Adjustment,Manual Correction,20000.33000000019,Reconciled to match bank balance of 8090.0,Tore Hetland
+491,2026-01-30T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (1/12),Tore Hetland
+492,2026-02-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (2/12),Tore Hetland
+493,2026-03-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (3/12),Tore Hetland
+494,2026-04-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (4/12),Tore Hetland
+495,2026-05-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (5/12),Tore Hetland
+496,2026-06-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (6/12),Tore Hetland
+497,2026-07-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (7/12),Tore Hetland
+498,2026-08-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (8/12),Tore Hetland
+499,2026-09-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (9/12),Tore Hetland
+500,2026-10-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (10/12),Tore Hetland
+501,2026-11-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (11/12),Tore Hetland
+502,2026-12-26T00:00:00,Income,Brukskonto,Husleie,Yana,15750.0,Rec (12/12),Tore Hetland
+504,,Expense,SAS Mastercard,Mat,Rema,100.0,,Tore Hetland
+511,2026-01-27T00:00:00,Expense,Brukskonto,Restaurant,Tuctuk,450.0,,Tore Hetland
+512,2026-01-28T15:03:17.215181,Expense,SAS Mastercard,Beauty,KRYO,3800.0,,Tore Hetland
+513,2026-02-20,Expense,Brukskonto,Transfer,Settlement: SAS Mastercard,1388.0,Auto-settle for SAS Mastercard,Tore Hetland
+514,2026-02-20,Income,SAS Mastercard,Transfer,From Brukskonto,1388.0,Auto-settle for SAS Mastercard,Tore Hetland

@@ -1,0 +1,5 @@
+id,name,account_type,balance,currency,is_default,credit_interest_rate,credit_due_day,credit_source_account,credit_period_mode,credit_start_day,credit_end_day,description,created_date,last_updated,user_id
+1,Brukskonto,Checking,8414.0,NOK,1,0.0,1,,Previous Month,1,31,,2026-01-21,2026-01-23,Tore Hetland
+7,Saving 62+,Savings,337300.0,NOK,0,0.0,20,,Previous Month,1,31,,2026-01-21,2026-01-23,Tore Hetland
+8,SAS Mastercard,Credit Card,-1199.0,NOK,0,19.5,20,Brukskonto,Previous Month,1,31,,2026-01-23,2026-01-23,Tore Hetland
+17,Norwegian Visa,Credit Card,0.0,NOK,0,19.5,15,Brukskonto,Previous Month,1,31,,2026-01-23,2026-01-23,Tore Hetland

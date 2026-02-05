@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="300" viewBox="0 0 1024 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mfGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#007BFF" />
+      <stop offset="100%" stop-color="#00B894" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(60,50)">
+    <circle cx="90" cy="100" r="70" fill="none" stroke="url(#mfGrad)" stroke-width="16"/>
+    <path d="M40 120 Q90 60 140 120" fill="none" stroke="url(#mfGrad)" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(260, 175)">
+    <text font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="96" fill="url(#mfGrad)">My</text>
+    <text x="180" font-family="Poppins, Arial, sans-serif" font-weight="700" font-size="96" fill="#1B263B">Finance</text>
+  </g>
+</svg>
