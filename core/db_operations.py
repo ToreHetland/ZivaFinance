@@ -50,7 +50,7 @@ def get_engine() -> Engine | None:
         return None
 
 # ============================================================
-# 2) TRANSACTION-SAFE WRAPPER
+# 2) TRANSACTION-SAFE CONNECTION WRAPPER
 # ============================================================
 class DBConnectionWrapper:
     def __init__(self, engine: Engine):
@@ -87,16 +87,55 @@ def execute_query_db(query: str, params: dict | None = None, fetch_result: bool 
         return False if not fetch_result else []
 
 # ============================================================
-# 3) AUTH & EMAIL HELPERS (Required for auth.py)
+# 3) CRUD HELPERS (REQUIRED FOR ONBOARDING & DASHBOARD)
 # ============================================================
-def send_license_request_email(name: str, email: str, note: str) -> bool:
-    """Placeholder for license requests."""
-    return False
+def add_record_db(table: str, data: dict | list[dict]):
+    if not data: return True
+    records = data if isinstance(data, list) else [data]
+    cleaned_records = []
+    for r in records:
+        r_copy = r.copy()
+        if "id" in r_copy and (not r_copy["id"] or str(r_copy["id"]).strip() == ""):
+            r_copy.pop("id", None)
+        cleaned_records.append(r_copy)
+    first_record = cleaned_records[0]
+    columns = ", ".join(first_record.keys())
+    placeholders = ", ".join([f":{k}" for k in first_record.keys()])
+    query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+    with get_connection() as conn:
+        return conn.execute(query, cleaned_records)
 
-def send_password_reset_email(to_email: str, reset_link: str) -> bool:
-    """Placeholder for password reset emails."""
-    return False
+def get_dataframe_db(query: str, params: dict | None = None) -> pd.DataFrame:
+    engine = get_engine()
+    if engine is None: return pd.DataFrame()
+    with engine.connect() as conn:
+        return pd.read_sql(text(str(query)), conn, params=params)
 
+def load_data_db(table_name: str, **kwargs) -> pd.DataFrame:
+    allowed = ["users", "licenses", "transactions", "accounts", "categories", "payees", "recurring", "budgets", "loans", "email_settings", "loan_extra_payments", "loan_terms_history"]
+    if table_name not in allowed: return pd.DataFrame()
+    query = f"SELECT * FROM {table_name}"
+    params = {}
+    if "user_id" in kwargs and kwargs["user_id"] != "bypass":
+        query += " WHERE user_id = :user_id"
+        params["user_id"] = kwargs["user_id"]
+    return get_dataframe_db(query, params)
+
+def update_record_db(table: str, data: dict, identifier_col: str, identifier_val):
+    set_clause = ", ".join([f"{k} = :{k}" for k in data.keys()])
+    query = f"UPDATE {table} SET {set_clause} WHERE {identifier_col} = :id_val"
+    params = {**data, "id_val": identifier_val}
+    with get_connection() as conn:
+        return conn.execute(query, params)
+
+def delete_record_db(table: str, identifier_col: str, identifier_val):
+    query = f"DELETE FROM {table} WHERE {identifier_col} = :id_val"
+    with get_connection() as conn:
+        return conn.execute(query, {"id_val": identifier_val})
+
+# ============================================================
+# 4) APP-SPECIFIC HELPERS (REQUIRED BY AUTH)
+# ============================================================
 def seed_user_categories(user_id: str) -> None:
     defaults = [("Groceries", "expense", None), ("Salary", "income", None)]
     for name, ctype, parent in defaults:
@@ -110,8 +149,11 @@ def ensure_category_exists(category_name: str, category_type: str, user_id: str,
             conn.execute("INSERT INTO categories (name, type, parent_category, user_id) VALUES (:n, :t, :p, :u)", 
                          {"n": category_name, "t": category_type, "p": parent, "u": user_id})
 
+def send_license_request_email(name, email, note): return False
+def send_password_reset_email(to_email, reset_link): return False
+
 # ============================================================
-# 4) PASSWORD RESET logic
+# 5) PASSWORD RESET
 # ============================================================
 def _hash_reset_token(token: str) -> str:
     return hashlib.sha256(token.encode("utf-8")).hexdigest()
@@ -119,10 +161,9 @@ def _hash_reset_token(token: str) -> str:
 def create_password_reset(email: str) -> str | None:
     raw_token = secrets.token_urlsafe(32)
     token_hash = _hash_reset_token(raw_token)
-    expires_at = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
     try:
-        execute_query_db("INSERT INTO password_resets (email, token_hash, expires_at) VALUES (:e, :th, :ex)", 
-                         {"e": email, "th": token_hash, "ex": expires_at})
+        execute_query_db("INSERT INTO password_resets (email, token_hash, used) VALUES (:e, :th, false)", 
+                         {"e": email, "th": token_hash})
         return raw_token
     except Exception: return None
 
@@ -136,4 +177,4 @@ def reset_password_with_token(raw_token: str, new_password: str) -> bool:
         return True
     return False
 
-# init_db()
+# init_db()  <-- Keep commented out for Streamlit Cloud
