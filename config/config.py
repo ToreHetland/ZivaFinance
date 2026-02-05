@@ -1,83 +1,94 @@
-﻿# config/config.py
-import json
-import streamlit as st
-from pathlib import Path
+﻿import streamlit as st
+from supabase import create_client, Client
 from config.i18n import t
 
 # ============================================================
-# GLOBAL PATHS
+# SUPABASE CLIENT INITIALIZATION
 # ============================================================
-CONFIG_PATH = Path("config/config.json")
-USER_SETTINGS_PATH = Path("config/user_settings.json")
+
+@st.cache_resource
+def get_supabase() -> Client:
+    """
+    Initializes the Supabase client using Streamlit secrets.
+    Ensure SUPABASE_URL and SUPABASE_KEY are in your Cloud Secrets.
+    """
+    url = st.secrets["SUPABASE_URL"]
+    key = st.secrets["SUPABASE_KEY"]
+    return create_client(url, key)
 
 # ============================================================
-# CORE CONFIGURATION
+# CORE CONFIGURATION (Static App Data)
 # ============================================================
 
 def load_config():
-    """Load static application configuration (non-user settings)."""
-    if CONFIG_PATH.exists():
-        try:
-            with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception as e:
-            st.error(f"Error reading config.json: {e}")
-            return {}
-    return {}
+    """
+    In cloud environments, static config is best kept in st.secrets 
+    or constants. This now returns a default empty dict or secrets.
+    """
+    return st.secrets.get("app_config", {})
 
 def save_config(config_dict):
-    """Save static configuration to disk."""
-    try:
-        CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(CONFIG_PATH, "w", encoding="utf-8") as f:
-            json.dump(config_dict, f, indent=2)
-    except Exception as e:
-        st.error(f"Failed to save config.json: {e}")
+    """
+    Saving static app config to disk is disabled in the cloud.
+    Use the Streamlit Dashboard to update secrets instead.
+    """
+    st.warning("Manual config saving is disabled in cloud mode. Update secrets instead.")
 
 # ============================================================
-# USER SETTINGS (Persistent Preferences)
+# USER SETTINGS (Persistent Preferences via Supabase)
 # ============================================================
 
 def get_setting(key: str, default=None):
     """
-    Retrieve a user setting from session or persisted file.
-    Falls back to provided default if not found.
+    Retrieve a user setting from Supabase.
+    Logic: Fetches from the 'user_settings' table for the current user.
     """
+    # 1. Check if we already have it in this session to save API calls
     if "settings" not in st.session_state:
-        if USER_SETTINGS_PATH.exists():
+        st.session_state["settings"] = {}
+        
+        # 2. If user is logged in, fetch their persistent data from Supabase
+        user = st.session_state.get("user")
+        if user:
             try:
-                with open(USER_SETTINGS_PATH, "r", encoding="utf-8") as f:
-                    st.session_state["settings"] = json.load(f)
-            except Exception:
-                st.session_state["settings"] = {}
-        else:
-            st.session_state["settings"] = {}
+                supabase = get_supabase()
+                # Assumes you have a table 'user_settings' with 'user_id' and 'settings' columns
+                response = supabase.table("user_settings")\
+                    .select("settings")\
+                    .eq("user_id", user["id"])\
+                    .execute()
+                
+                if response.data:
+                    st.session_state["settings"] = response.data[0].get("settings", {})
+            except Exception as e:
+                st.error(f"Error fetching settings from Supabase: {e}")
 
     return st.session_state["settings"].get(key, default)
 
 def set_setting(key: str, value):
     """
-    Store a setting both in Streamlit session and JSON file.
-    Returns True on success, False otherwise.
+    Upserts a setting into the Supabase 'user_settings' table.
     """
-    # FIX: We check authentication dynamically here, or allow it for testing.
-    # If you want to strictly block non-logged in users, uncomment the next 2 lines:
-    # if not st.session_state.get("authenticated", False):
-    #     return False
-
+    # Update local session state first
     if "settings" not in st.session_state:
         st.session_state["settings"] = {}
-
+    
     st.session_state["settings"][key] = value
 
-    try:
-        USER_SETTINGS_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(USER_SETTINGS_PATH, "w", encoding="utf-8") as f:
-            json.dump(st.session_state["settings"], f, indent=2)
-        return True
-    except Exception as e:
-        st.error(f"Failed to save settings: {e}")
-        return False
+    # Persist to Supabase if authenticated
+    user = st.session_state.get("user")
+    if user:
+        try:
+            supabase = get_supabase()
+            supabase.table("user_settings").upsert({
+                "user_id": user["id"],
+                "settings": st.session_state["settings"]
+            }).execute()
+            return True
+        except Exception as e:
+            st.error(f"Failed to sync settings to Supabase: {e}")
+            return False
+    return True
 
 # ============================================================
 # CURRENCY FORMATTING
@@ -93,21 +104,16 @@ def format_currency(amount: float) -> str:
 
     currency = get_setting("currency", "NOK")
     try:
+        # Format with spaces for thousands and comma for decimals
         formatted = f"{amount:,.2f}".replace(",", " ").replace(".", ",")
         return f"{formatted} {currency}"
     except Exception:
         return f"{amount} {currency}"
 
 # ============================================================
-# PLACEHOLDER SETTINGS LOADER FOR OTHER MODULES
+# SETTINGS LOADER FOR OTHER MODULES
 # ============================================================
 
 def get_all_settings() -> dict:
-    """Return all persisted user settings."""
-    if USER_SETTINGS_PATH.exists():
-        try:
-            with open(USER_SETTINGS_PATH, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return {}
-    return {}
+    """Return all persisted user settings from the current session."""
+    return st.session_state.get("settings", {})
