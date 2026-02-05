@@ -21,7 +21,15 @@ from core.onboarding import (
     opening_balance_dialog,
 )
 
-
+# Temporary connection test
+try:
+    from core.db_operations import get_connection
+    with get_connection() as conn:
+        conn.execute("SELECT 1")
+    st.sidebar.success("✅ Database Connected")
+except Exception as e:
+    st.sidebar.error(f"❌ Database Connection Failed: {e}")
+    
 def get_app_base_url() -> str:
     """
     Best-effort base URL for Streamlit Cloud + local.
@@ -158,49 +166,47 @@ def login_screen():
                     st.stop()
 
                 try:
-                    with get_connection() as conn:
-                        cur = conn.execute(
-                            """
-                            SELECT username, role, full_name, language, email, password_hash
-                              FROM users
-                             WHERE lower(email) = :e
-                            """,
-                            {"e": email.strip().lower()},
-                        )
-                        user = cur.fetchone()
+                    # 1. Initialize Supabase Client
+                    from config.config import get_supabase
+                    supabase = get_supabase()
 
-                    if not user:
-                        st.error("Invalid email or password.")
-                        st.stop()
-
-                    stored_hash = user[5] or ""
-                    if not verify_password(password, stored_hash):
-                        st.error("Invalid email or password.")
-                        st.stop()
-
-                    # Session
+                    # 2. Attempt to sign in via Supabase Auth
+                    # This replaces the old "SELECT * FROM users" database query
+                    auth_response = supabase.auth.sign_in_with_password({
+                        "email": email,
+                        "password": password
+                    })
+                    
+                    # 3. Extract user data on success
+                    user = auth_response.user
+                    
+                    # 4. Set Session State for the rest of the app to use
                     st.session_state["authenticated"] = True
-                    st.session_state["username"] = user[0]  # internal user_id
-                    st.session_state["role"] = user[1]
-                    st.session_state["full_name"] = user[2]
-                    st.session_state["language"] = user[3] if user[3] else "en"
-                    st.session_state["email"] = user[4]
+                    st.session_state["user"] = user
+                    st.session_state["username"] = user.id  # The Supabase UUID (unique ID)
+                    st.session_state["email"] = user.email
+                    
+                    # Fetch extra info (Metadata) if saved during registration
+                    metadata = user.user_metadata if user.user_metadata else {}
+                    st.session_state["full_name"] = metadata.get("full_name", user.email)
+                    st.session_state["language"] = metadata.get("language", "en")
+                    st.session_state["role"] = metadata.get("role", "tester")
 
-                    # Seed defaults + onboarding bootstrap
+                    # 5. Run existing onboarding/setup logic
+                    # We pass user.id to ensure their categories/data are isolated
                     seed_user_categories(st.session_state["username"])
                     ensure_user_bootstrap(st.session_state["username"], st.session_state["language"])
 
-                    # Optional opening balance (only if user has no transactions yet)
+                    # Optional: Opening balance check
                     if should_show_opening_balance(st.session_state["username"]):
                         opening_balance_dialog(st.session_state["username"], st.session_state["language"])
 
-                    st.success(
-                        f"Welcome back, {st.session_state['full_name'] if st.session_state['full_name'] else st.session_state['email']}!"
-                    )
+                    st.success(f"Welcome back, {st.session_state['full_name']}!")
                     st.rerun()
 
-                except Exception as e:
-                    st.error(f"Login failed: {e}")
+                except Exception:
+                    # If Supabase returns an error (wrong password, etc.), it hits this block
+                    st.error("Invalid email or password.")
 
         # -------------------
         # FORGOT PASSWORD (EMAIL RESET LINK)

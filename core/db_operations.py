@@ -8,7 +8,7 @@ import pandas as pd
 import streamlit as st
 import secrets
 import hashlib
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, create_client   
 from sqlalchemy.engine import Engine
 from config.i18n import t
 
@@ -43,20 +43,23 @@ def verify_password(password: str, password_hash: str) -> bool:
 def _get_db_url() -> tuple[str, bool]:
     db_url = None
     try:
-        if "connections" in st.secrets and "DATABASE_URL" in st.secrets["connections"]:
+        # Check Streamlit Cloud Secrets first
+        if "DATABASE_URL" in st.secrets:
+            db_url = st.secrets["DATABASE_URL"]
+        elif "connections" in st.secrets and "DATABASE_URL" in st.secrets["connections"]:
             db_url = st.secrets["connections"]["DATABASE_URL"]
-        else:
-            db_url = st.secrets.get("DATABASE_URL", None)
     except Exception:
         db_url = None
 
     if not db_url:
+        # Local fallback for your iMac
         project_root = Path(__file__).resolve().parents[1]
         db_dir = project_root / "data"
         db_dir.mkdir(parents=True, exist_ok=True)
         db_path = (db_dir / "finance.db").resolve()
         return f"sqlite:///{db_path.as_posix()}", False
 
+    # Standardize Postgres prefix for SQLAlchemy
     db_url = str(db_url).replace("postgres://", "postgresql://")
     return db_url, True
 
@@ -65,7 +68,12 @@ DB_URL, IS_POSTGRES = _get_db_url()
 @st.cache_resource
 def get_engine() -> Engine | None:
     try:
-        return create_engine(DB_URL, pool_pre_ping=True)
+        # Use a longer timeout for Cloud connections
+        return create_engine(
+            DB_URL, 
+            pool_pre_ping=True, 
+            connect_args={'connect_timeout': 10} if IS_POSTGRES else {}
+        )
     except Exception as e:
         st.error(f"❌ DB Connection Error: {e}")
         return None
@@ -238,11 +246,18 @@ class DBConnectionWrapper:
         stmt = text(query) if isinstance(query, str) else query
         return self.conn.execute(stmt, params or {})
 
-def get_connection() -> DBConnectionWrapper:
-    engine = get_engine()
-    if engine is None:
-        raise RuntimeError("Database engine is not available.")
-    return DBConnectionWrapper(engine)
+import streamlit as st
+from sqlalchemy import create_client
+
+def get_connection():
+    """
+    Connects to the Supabase PostgreSQL database using 
+    the DATABASE_URL secret you saved in Streamlit Cloud.
+    """
+    from sqlalchemy import create_engine
+    # This uses the long postgresql:// string we saved earlier
+    engine = create_engine(st.secrets["DATABASE_URL"])
+    return engine.connect()
 
 def execute_query_db(query: str, params: dict | None = None, fetch_result: bool = False) -> bool | list:
     """
@@ -545,4 +560,4 @@ def reset_password_with_token(raw_token: str, new_password: str) -> bool:
 def send_password_reset_email(to_email: str, reset_link: str) -> bool:
     return False # Placeholder
 
-init_db()
+#init_db()
