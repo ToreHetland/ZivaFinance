@@ -95,7 +95,7 @@ def login_screen():
 
     tab1, tab2 = st.tabs(["Login", "Register"])
 
-    # -------------------
+# -------------------
     # TAB 1: LOGIN (EMAIL)
     # -------------------
     with tab1:
@@ -130,19 +130,26 @@ def login_screen():
                         st.error("Invalid email or password.")
                         st.stop()
 
-                    # Session
+                    # --- UPDATED LOGIC START ---
+                    # user[2] is the 'full_name' column from the SQL query above
+                    db_full_name = (user[2] or "").strip()
+
                     st.session_state.authenticated = True
-                    st.session_state.username = user[0]                 # internal user_id
+                    
+                    # We prioritize the full_name for the session username. 
+                    # This ensures db queries filter for "Tore Hetland" instead of the email.
+                    st.session_state.username = db_full_name if db_full_name else user[0] 
+                    
+                    st.session_state.full_name = db_full_name
                     st.session_state.role = user[1]
-                    st.session_state.full_name = (user[2] or "").strip() or (user[4] or "").strip()
                     st.session_state.language = user[3] if user[3] else "en"
                     st.session_state.email = user[4]
+                    # --- UPDATED LOGIC END ---
 
-                    # Seed defaults (legacy) + new onboarding bootstrap
+                    # Seed defaults + onboarding using the Name as the key
                     seed_user_categories(st.session_state.username)
                     ensure_user_bootstrap(st.session_state.username, st.session_state.language)
 
-                    # Optional opening balance (only if user has no transactions yet)
                     if should_show_opening_balance(st.session_state.username):
                         opening_balance_dialog(st.session_state.username, st.session_state.language)
 
