@@ -181,9 +181,7 @@ def login_screen():
                     if reset_link:
                         send_password_reset_email(reset_email, reset_link)
 
-                    st.success("If that email exists in Ziva, a reset link has been sent.")
-
-    # -----------------------
+                    st.success("If that email exists in Ziva, a reset link has been sent.")# -----------------------
     # TAB 2: REGISTER (EMAIL)
     # -----------------------
     with tab2:
@@ -194,20 +192,12 @@ def login_screen():
             reg_pass = st.text_input("Choose Password", type="password")
             reg_pass2 = st.text_input("Repeat Password", type="password")
 
-            # ✅ Updated language list
             lang_options = {
-                "English": "en",
-                "Norwegian": "no",
-                "Swedish": "sv",
-                "Danish": "da",
-                "German": "de",
-                "Spanish": "es",
-                "Dutch": "nl",
-                "French": "fr",
-                "Italian": "it",
-                "Ukrainian": "uk",
+                "English": "en", "Norwegian": "no", "Swedish": "sv",
+                "Danish": "da", "German": "de", "Spanish": "es",
+                "Dutch": "nl", "French": "fr", "Italian": "it", "Ukrainian": "uk",
             }
-            reg_lang_name = st.selectbox("Preferred Language", options=list(lang_options.keys()), index=1)  # default Norwegian
+            reg_lang_name = st.selectbox("Preferred Language", options=list(lang_options.keys()), index=1)
             license_code = st.text_input("License Code").strip().upper()
 
             submit = st.form_submit_button("REGISTER")
@@ -224,25 +214,20 @@ def login_screen():
                     st.stop()
 
                 lang_code = lang_options[reg_lang_name]
-                reg_username = reg_email  # internal user_id
+                reg_username = reg_email  # Still used as primary key in 'users' table
 
                 try:
                     with get_connection() as conn:
-                        # 1) License must be valid + unused
+                        # 1) License Check
                         cur = conn.execute(
-                            """
-                            SELECT code
-                              FROM licenses
-                             WHERE code = :c
-                               AND is_used = false
-                            """,
+                            "SELECT code FROM licenses WHERE code = :c AND is_used = false",
                             {"c": license_code},
                         )
                         if not cur.fetchone():
                             st.error("Invalid or already used License Code.")
                             st.stop()
 
-                        # 2) Email must not exist
+                        # 2) Email Existence Check
                         cur = conn.execute(
                             "SELECT username FROM users WHERE lower(email) = :e",
                             {"e": reg_email},
@@ -251,51 +236,43 @@ def login_screen():
                             st.error("An account with that email already exists.")
                             st.stop()
 
-                        # 3) Insert user with hashed password
+                        # 3) Insert User
                         pw_hash = hash_password(reg_pass)
-
                         conn.execute(
                             """
                             INSERT INTO users (username, password_hash, role, license_code, full_name, email, language)
                             VALUES (:u, :p, :r, :l, :f, :e, :la)
                             """,
                             {
-                                "u": reg_username,
-                                "p": pw_hash,
-                                "r": "tester",
-                                "l": license_code,
-                                "f": reg_full_name,
-                                "e": reg_email,
-                                "la": lang_code,
+                                "u": reg_username, "p": pw_hash, "r": "tester",
+                                "l": license_code, "f": reg_full_name,
+                                "e": reg_email, "la": lang_code,
                             },
                         )
 
-                        # 4) Mark license used
+                        # 4) Mark License Used
                         conn.execute(
-                            """
-                            UPDATE licenses
-                               SET is_used = true,
-                                   assigned_to = :u
-                             WHERE code = :c
-                            """,
+                            "UPDATE licenses SET is_used = true, assigned_to = :u WHERE code = :c",
                             {"u": reg_username, "c": license_code},
                         )
 
-                    # Session
+                    # --- UPDATED SESSION LOGIC ---
+                    # Use full name as session ID to match imported 'Tore Hetland' data
+                    effective_user_id = reg_full_name if reg_full_name else reg_username
+
                     st.session_state.authenticated = True
-                    st.session_state.username = reg_username
+                    st.session_state.username = effective_user_id  
                     st.session_state.full_name = reg_full_name
                     st.session_state.language = lang_code
                     st.session_state.role = "tester"
                     st.session_state.email = reg_email
 
-                    # Seed defaults + onboarding bootstrap
-                    seed_user_categories(reg_username)
-                    ensure_user_bootstrap(reg_username, lang_code)
+                    # Seed and Bootstrap using the Full Name
+                    seed_user_categories(st.session_state.username)
+                    ensure_user_bootstrap(st.session_state.username, lang_code)
 
-                    # Opening balance dialog on first run
-                    if should_show_opening_balance(reg_username):
-                        opening_balance_dialog(reg_username, lang_code)
+                    if should_show_opening_balance(st.session_state.username):
+                        opening_balance_dialog(st.session_state.username, lang_code)
 
                     st.success("Registration successful!")
                     st.rerun()
@@ -303,7 +280,7 @@ def login_screen():
                 except Exception as e:
                     st.error(f"Registration error: {e}")
 
-        # --- LICENSE REQUEST ---
+        # --- LICENSE REQUEST (ADDED) ---
         st.markdown("---")
         with st.expander("🔑 Don't have a license code? Request one here"):
             with st.form("request_code_form"):
