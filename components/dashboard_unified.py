@@ -214,7 +214,13 @@ def render_dashboard_unified():
 
     apply_ziva_theme()
 
-    current_user = st.session_state.get("username", "Guest")
+    current_user = (
+    st.session_state.get("full_name")
+    or st.session_state.get("display_name")
+    or st.session_state.get("username")
+    or "Guest"
+)
+
     user_role = st.session_state.get("role", "tester")
 
     # ----------------------------------------------------------

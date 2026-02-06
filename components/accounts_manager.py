@@ -278,48 +278,74 @@ def render_accounts_manager():
                 for _, account in type_accounts.iterrows():
                     _render_account_card(account, summary)
     
-    # TAB 2: SETTLEMENT CENTER (The Challenge Logic)
-    with tab_settle:
-        st.subheader("💳 Credit Card Monthly Pay-Off")
-        st.caption("Identify last month's spending and schedule payments for the 20th.")
-        
-        cards = df[df["account_type"] == "Credit Card"]
-        if cards.empty:
-            st.info("No credit cards found.")
-        else:
-            today = date.today()
-            last_month_dt = today - relativedelta(months=1)
-            
-            for _, card in cards.iterrows():
-                amt_due = get_statement_balance(card["name"], last_month_dt.month, last_month_dt.year)
-                source_acc = card["credit_source_account"]
-                due_day = int(card.get("credit_due_day", 20))
-                due_date = date(today.year, today.month, due_day)
-                
-                with st.expander(f"{card['name']} Settlement - {last_month_dt.strftime('%B %Y')}", expanded=amt_due > 0):
-                    c1, c2 = st.columns(2)
-                    c1.metric("Debt from Last Month", f"{amt_due:,.2f} {card['currency']}")
-                    c2.write(f"**Target Payment Date:** {due_date.strftime('%d.%m.%Y')}")
-                    c2.write(f"**Pay From:** {source_acc if source_acc else '🚨 Set in Edit Tab'}")
-                    
-                    if amt_due > 0 and source_acc:
-                        if st.button(f"Confirm & Pay {amt_due:,.2f}", key=f"pay_{card['name']}"):
-                            # Payment deduction from Brukskonto
-                            out_tx = {
-                                "date": normalize_date_to_iso(due_date),
-                                "type": "Expense", "account": source_acc, "category": "Transfer",
-                                "payee": f"Full Settlement: {card['name']}", "amount": amt_due,
-                                "description": f"Paid full balance from {last_month_dt.strftime('%B %Y')}", "initials": "SYS"
-                            }
-                            # Payment credit to Card
-                            in_tx = out_tx.copy()
-                            in_tx["type"] = "Income"
-                            in_tx["account"] = card["name"]
-                            in_tx["payee"] = f"Payment from {source_acc}"
-                            
-                            if add_record_db("transactions", out_tx) and add_record_db("transactions", in_tx):
-                                st.success(f"✅ Scheduled for {due_date.strftime('%d.%m')}")
-                                st.rerun()
+# TAB 2: SETTLEMENT CENTER (The Challenge Logic)
+with tab_settle:
+    st.subheader("💳 Credit Card Monthly Pay-Off")
+    st.caption("Identify last month's spending and schedule payments for the 20th.")
+
+    cards = df[df["account_type"] == "Credit Card"]
+    if cards.empty:
+        st.info("No credit cards found.")
+    else:
+        today = date.today()
+        last_month_dt = today - relativedelta(months=1)
+
+        for i, card in enumerate(cards.itertuples(index=False)):
+            # card is a namedtuple now (safer/faster than iterrows)
+            card_name = getattr(card, "name", "")
+            card_currency = getattr(card, "currency", "NOK")
+            source_acc = getattr(card, "credit_source_account", None)
+            due_day_raw = getattr(card, "credit_due_day", 20)
+            card_id = getattr(card, "id", None)  # may or may not exist
+
+            # Amount due (based on last month's statement)
+            amt_due = get_statement_balance(card_name, last_month_dt.month, last_month_dt.year)
+
+            # Safe due date: clamp due_day to last day in month
+            try:
+                due_day = int(due_day_raw) if due_day_raw is not None else 20
+            except Exception:
+                due_day = 20
+            last_dom = calendar.monthrange(today.year, today.month)[1]
+            due_day = max(1, min(due_day, last_dom))
+            due_date = date(today.year, today.month, due_day)
+
+            # Unique button key (fixes StreamlitDuplicateElementKey)
+            safe_name = str(card_name).strip().lower().replace(" ", "_")
+            unique_key = f"pay_{card_id if card_id is not None else i}_{safe_name}_{last_month_dt.year}{last_month_dt.month:02d}"
+
+            with st.expander(f"{card_name} Settlement - {last_month_dt.strftime('%B %Y')}", expanded=amt_due > 0):
+                c1, c2 = st.columns(2)
+                c1.metric("Debt from Last Month", f"{amt_due:,.2f} {card_currency}")
+                c2.write(f"**Target Payment Date:** {due_date.strftime('%d.%m.%Y')}")
+                c2.write(f"**Pay From:** {source_acc if source_acc else '🚨 Set in Edit Tab'}")
+
+                if amt_due > 0 and source_acc:
+                    if st.button(f"Confirm & Pay {amt_due:,.2f}", key=unique_key):
+                        # Payment deduction from Brukskonto (source)
+                        out_tx = {
+                            "date": normalize_date_to_iso(due_date),
+                            "type": "Expense",
+                            "account": source_acc,
+                            "category": "Transfer",
+                            "payee": f"Full Settlement: {card_name}",
+                            "amount": float(amt_due),
+                            "description": f"Paid full balance from {last_month_dt.strftime('%B %Y')}",
+                            "initials": "SYS",
+                            "user_id": st.session_state.get("username", "default"),
+                        }
+
+                        # Payment credit to Card (destination)
+                        in_tx = out_tx.copy()
+                        in_tx["type"] = "Income"
+                        in_tx["account"] = card_name
+                        in_tx["payee"] = f"Payment from {source_acc}"
+
+                        if add_record_db("transactions", out_tx) and add_record_db("transactions", in_tx):
+                            st.success(f"✅ Scheduled for {due_date.strftime('%d.%m')}")
+                            st.rerun()
+                elif amt_due > 0 and not source_acc:
+                    st.warning("Set **Pay From** account in the Edit tab to enable settlement.")
 
     # TAB 3: EDIT ALL
     with tab_edit:

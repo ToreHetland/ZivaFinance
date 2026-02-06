@@ -134,7 +134,7 @@ def login_screen():
                     st.session_state.authenticated = True
                     st.session_state.username = user[0]                 # internal user_id
                     st.session_state.role = user[1]
-                    st.session_state.full_name = user[2]
+                    st.session_state.full_name = (user[2] or "").strip() or (user[4] or "").strip()
                     st.session_state.language = user[3] if user[3] else "en"
                     st.session_state.email = user[4]
 
