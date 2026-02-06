@@ -62,136 +62,131 @@ def render_glass_card(content_func, *args, title=None, **kwargs):
     st.markdown('</div>', unsafe_allow_html=True)
 
 def render_admin_panel():
-        st.title(f"🛡️ {t('admin_panel')}")
-        t1, t2, t3, t4 = st.tabs(["User Management", "License Keys", "Pending Requests", "Diagnostics"])
+    st.title(f"🛡️ {t('admin_panel')}")
+    t1, t2, t3, t4 = st.tabs(["User Management", "License Keys", "Pending Requests", "Diagnostics"])
+    
+    with t1:
+        st.subheader("Registered Testers")
+        users = load_data_db("users")
+        if not users.empty:
+            display_cols = [c for c in ["username", "full_name", "email", "role"] if c in users.columns]
+            # Updated to new syntax: width="stretch"
+            st.dataframe(users[display_cols], width="stretch")
+            
+            col_a, col_b = st.columns(2)
+            with col_a:
+                user_to_del = st.selectbox("Select user to manage", users["username"], key="admin_user_select")
+                if st.button("Delete User Account", type="primary", width="stretch"): 
+                    execute_query_db("DELETE FROM users WHERE username = :u", {"u": user_to_del})
+                    st.success(f"User {user_to_del} deleted.")
+                    st.rerun()
+            
+            with col_b:
+                new_temp_pass = st.text_input("New Temporary Password", type="password")
+                if st.button("Reset User Password", width="stretch"): 
+                    from core.db_operations import admin_reset_password
+                    if admin_reset_password(user_to_del, new_temp_pass):
+                        st.success(f"Password updated for {user_to_del}!")
+        else:
+            st.info("No users registered yet.")
+
+    with t2:
+        st.subheader("Available Licenses")
+        licenses = load_data_db("licenses")
+        st.dataframe(licenses, width="stretch")
         
-        with t1:
-            st.subheader("Registered Testers")
-            users = load_data_db("users")
-            if not users.empty:
-                display_cols = [c for c in ["username", "full_name", "email", "role"] if c in users.columns]
-                # Updated to width="stretch"
-                st.dataframe(users[display_cols], width="stretch")
-                
-                col_a, col_b = st.columns(2)
-                with col_a:
-                    user_to_del = st.selectbox("Select user to manage", users["username"], key="admin_user_select")
-                    if st.button("Delete User Account", type="primary", width="stretch"): 
-                        execute_query_db("DELETE FROM users WHERE username = :u", {"u": user_to_del})
-                        st.success(f"User {user_to_del} deleted.")
-                        st.rerun()
-                
-                with col_b:
-                    new_temp_pass = st.text_input("New Temporary Password", type="password")
-                    if st.button("Reset User Password", width="stretch"): 
-                        from core.db_operations import admin_reset_password
-                        if admin_reset_password(user_to_del, new_temp_pass):
-                            st.success(f"Password updated for {user_to_del}!")
+        # FIXED: SQL uses 'false' (boolean) instead of '0'
+        if st.button("Generate New License Code", width="stretch", type="primary"): 
+            new_code = f"ZIVA-{str(uuid.uuid4())[:8].upper()}"
+            execute_query_db("INSERT INTO licenses (code, is_used) VALUES (:c, false)", {"c": new_code})
+            st.success(f"Generated: {new_code}")
+            import time
+            time.sleep(0.5)
+            st.rerun()
 
-        with t2:
-            st.subheader("Available Licenses")
-            licenses = load_data_db("licenses")
-            st.dataframe(licenses, width="stretch")
-            
-            # FIXED: SQL uses 'false' (boolean) instead of '0' (integer)
-            if st.button("Generate New License Code", width="stretch", type="primary"): 
-                new_code = f"ZIVA-{str(uuid.uuid4())[:8].upper()}"
-                execute_query_db("INSERT INTO licenses (code, is_used) VALUES (:c, false)", {"c": new_code})
-                st.success(f"Generated: {new_code}")
-                import time
-                time.sleep(0.5)
-                st.rerun()
-
-        with t3:
-            st.subheader("New Access Requests")
-            requests = load_data_db("license_requests", user_id="bypass")
-            
-            if not requests.empty:
-                # FIXED: Boolean check for 'pending'
-                pending = requests[requests['status'] == 'pending']
-                if not pending.empty:
-                    st.dataframe(pending[["name", "email", "reason", "requested_at"]], width="stretch")
-                    
-                    request_map = {row['email']: row['name'] for _, row in pending.iterrows()}
-                    selected_email = st.selectbox("Select request to approve", list(request_map.keys()))
-                    
-                    if st.button("Approve & Send Email", type="primary", width="stretch"): 
-                        with get_connection() as conn:
-                            # FIXED: Query uses 'false' instead of '0'
-                            cur = conn.execute("SELECT code FROM licenses WHERE is_used = false LIMIT 1")
-                            row = cur.fetchone()
+    with t3:
+        st.subheader("New Access Requests")
+        requests = load_data_db("license_requests", user_id="bypass")
+        
+        if not requests.empty:
+            pending = requests[requests['status'] == 'pending']
+            if not pending.empty:
+                st.dataframe(pending[["name", "email", "reason", "requested_at"]], width="stretch")
+                
+                request_map = {row['email']: row['name'] for _, row in pending.iterrows()}
+                selected_email = st.selectbox("Select request to approve", list(request_map.keys()))
+                
+                if st.button("Approve & Send Email", type="primary", width="stretch"): 
+                    with get_connection() as conn:
+                        # FIXED: is_used = false for Postgres
+                        cur = conn.execute("SELECT code FROM licenses WHERE is_used = false LIMIT 1")
+                        row = cur.fetchone()
+                        
+                        if row:
+                            assigned_code = row[0]
+                            selected_name = request_map[selected_email]
                             
-                            if row:
-                                assigned_code = row[0]
-                                selected_name = request_map[selected_email]
-                                
-                                if send_approval_email(selected_email, selected_name, assigned_code):
-                                    # FIXED: Status updates using Postgres strings/booleans
-                                    conn.execute("UPDATE license_requests SET status = 'approved' WHERE email = :e", {"e": selected_email})
-                                    conn.execute("UPDATE licenses SET is_used = true WHERE code = :c", {"c": assigned_code})
-                                    st.success(f"✅ Code {assigned_code} sent to {selected_email}.")
-                                    st.rerun()
-                                else:
-                                    st.error("Email failed to send. Check SMTP.")
+                            if send_approval_email(selected_email, selected_name, assigned_code):
+                                conn.execute("UPDATE license_requests SET status = 'approved' WHERE email = :e", {"e": selected_email})
+                                conn.execute("UPDATE licenses SET is_used = true WHERE code = :c", {"c": assigned_code})
+                                st.success(f"✅ Code {assigned_code} sent to {selected_email}.")
+                                st.rerun()
                             else:
-                                st.error("No unused license codes available. Generate one first!")
+                                st.error("Email failed. Check SMTP settings in Diagnostics.")
+                        else:
+                            st.error("No license codes available.")
+            else:
+                st.success("No pending requests.")
 
-        with t4:
-                    st.subheader("System Health & AI Maintenance")
-                    
-                    # 1. Define the missing columns
-                    diag_c1, diag_c2 = st.columns(2)
-                    
-                    with diag_c1:
-                        st.markdown("#### 📧 Email System")
-                        # Removed the double-nested button logic
-                        if st.button("Test SMTP Settings", width="stretch"): 
-                            with st.spinner("Testing..."):
-                                settings_df = load_data_db("email_settings")
-                                if not settings_df.empty:
-                                    s = settings_df.iloc[0]
-                                    try:
-                                        server = smtplib.SMTP(s["smtp_server"], int(s["smtp_port"]))
-                                        server.starttls()
-                                        server.login(s["email_address"], s["email_password"])
-                                        server.quit()
-                                        st.success(f"✅ SMTP Connected: {s['email_address']}")
-                                    except Exception as e:
-                                        st.error(f"❌ SMTP Error: {e}")
-                                else:
-                                    st.warning("No email settings found.")
-
-                    with diag_c2: # Now this variable is defined!
-                        st.markdown("#### 📂 Database")
-                        if st.button("Check DB Integrity", width="stretch"): 
-                            try:
-                                from core.db_operations import IS_POSTGRES
-                                with get_connection() as conn:
-                                    if IS_POSTGRES:
-                                        query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';"
-                                    else:
-                                        query = "SELECT name FROM sqlite_master WHERE type='table';"
-                                    res = conn.execute(query).fetchall()
-                                st.success(f"✅ Connected. Found {len(res)} tables.")
-                            except Exception as e:
-                                st.error(f"❌ Database Error: {e}")
-
-                    st.markdown("---")
-                    
-                    # --- AI BRANDING SECTION ---
-                    st.markdown("#### 🎨 Nano Banana Asset Generation")
-                    st.info("Generate custom 3D Glassmorphism icons for categories.")
-                    
-                    # Fixed width syntax here too
-                    if st.button("🚀 Generate Missing Category Icons", width="stretch", type="primary"):
+    with t4:
+        st.subheader("System Health & AI Maintenance")
+        
+        # FIXED: These columns MUST be defined here to avoid 'diag_c2 not defined'
+        diag_c1, diag_c2 = st.columns(2)
+        
+        with diag_c1:
+            st.markdown("#### 📧 Email System")
+            if st.button("Test SMTP Settings", width="stretch"): 
+                with st.spinner("Testing..."):
+                    settings_df = load_data_db("email_settings")
+                    if not settings_df.empty:
+                        s = settings_df.iloc[0]
                         try:
-                            from core.icon_generator import generate_and_save_icons
-                            with st.status("AI is crafting your bespoke icons...", expanded=True) as status:
-                                generate_and_save_icons()
-                                status.update(label="✅ Branding complete!", state="complete", expanded=False)
-                        except ImportError:
-                            st.error("Icon generator module not found.")
+                            server = smtplib.SMTP(s["smtp_server"], int(s["smtp_port"]))
+                            server.starttls()
+                            server.login(s["email_address"], s["email_password"])
+                            server.quit()
+                            st.success(f"✅ SMTP Connected: {s['email_address']}")
+                        except Exception as e:
+                            st.error(f"❌ SMTP Error: {e}")
+                    else:
+                        st.warning("No email settings found.")
 
+        with diag_c2:
+            st.markdown("#### 📂 Database")
+            if st.button("Check DB Integrity", width="stretch"): 
+                try:
+                    from core.db_operations import IS_POSTGRES
+                    with get_connection() as conn:
+                        if IS_POSTGRES:
+                            query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';"
+                        else:
+                            query = "SELECT name FROM sqlite_master WHERE type='table';"
+                        res = conn.execute(query).fetchall()
+                    st.success(f"✅ Connected. Found {len(res)} tables.")
+                except Exception as e:
+                    st.error(f"❌ Database Error: {e}")
+
+        st.markdown("---")
+        st.markdown("#### 🎨 Nano Banana Asset Generation")
+        if st.button("🚀 Generate Missing Category Icons", width="stretch", type="primary"):
+            try:
+                from core.icon_generator import generate_and_save_icons
+                with st.status("AI is crafting icons...", expanded=True):
+                    generate_and_save_icons()
+                st.success("Branding complete!")
+            except ImportError:
+                st.error("Icon generator module not found.")
 # ============================================================
 # 🚀 UNIFIED DASHBOARD
 # ============================================================
@@ -295,6 +290,7 @@ def render_dashboard_unified():
 
     c_nav, c_more = st.columns([6, 1.2])
 
+# Inside render_dashboard_unified ...
     with c_nav:
         nav_cols = st.columns(len(nav_icons))
         for i, (key, icon) in enumerate(nav_icons.items()):
@@ -303,7 +299,7 @@ def render_dashboard_unified():
             if nav_cols[i].button(
                 label,
                 key=f"nav_{key}",
-                use_container_width=True,
+                width="stretch", # Updated here
                 type="primary" if is_active else "secondary",
             ):
                 st.session_state["active_tab"] = key
