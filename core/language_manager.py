@@ -416,7 +416,7 @@ def t(key: str, **kwargs) -> str:
     except Exception:
         return text
 
-def get_time_greeting_key(now: datetime.datetime | None = None) -> str:
+def get_time_greeting(now: datetime.datetime | None = None) -> str:
     # Oslo time if available
     if now is None:
         try:
@@ -431,7 +431,7 @@ def get_time_greeting_key(now: datetime.datetime | None = None) -> str:
         return "afternoon"
     return "evening"
 
-def get_time_greeting(now: datetime.datetime | None = None) -> str:
+def get_time_greeting_key(now: datetime.datetime | None = None) -> str:
     return t(get_time_greeting_key(now))
 
 def month_name(month: int, short: bool = False) -> str:
