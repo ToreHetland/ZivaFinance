@@ -83,7 +83,8 @@ def _apply_sexy_styles():
 # 🧠 STRATEGIC CONTEXT BUILDER (MULTI-USER AWARE)
 # ============================================================
 def _build_strategic_context() -> Dict:
-    uid = st.session_state.get("username")
+    uid = st.session_state.get("username") or "default"
+
     
     # Isolation: Only load data for the active user
     tx = load_data_db("transactions", user_id=uid)
@@ -98,7 +99,7 @@ def _build_strategic_context() -> Dict:
     }
 
     if not tx.empty:
-        tx["date"] = pd.to_datetime(tx["date"], format='ISO8601', errors='coerce')
+        tx["date"] = pd.to_datetime(tx["date"], errors="coerce")
         exclude = ["Transfer", "Overføring", "Overforing", "Adjustment", "Balansejustering", "Balance Adjustment"]
         clean_tx = tx[~tx["type"].isin(exclude) & ~tx["category"].isin(exclude)]
         
@@ -116,7 +117,8 @@ def _build_strategic_context() -> Dict:
 # ============================================================
 def render_ai_advisor():
     _apply_sexy_styles()
-    uid = st.session_state.get("username")
+    uid = st.session_state.get("username") or "default"
+
     
     # 1. HEADER & LOGO
     persona = get_setting("ai_persona", "Professional Analyst")
