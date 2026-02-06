@@ -1,15 +1,18 @@
 ﻿# components/charts.py
-import streamlit as st
+from __future__ import annotations
+
+from datetime import datetime
+
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from datetime import datetime
-import numpy as np
+import streamlit as st
 
-from config.i18n import t
-from config.config import format_currency, get_setting
 from core.db_operations import load_data_db
+from config.config import format_currency, get_setting
 from config.i18n import t
+
 
 # ============================================================
 # 🎨 THEME-AWARE PALETTE

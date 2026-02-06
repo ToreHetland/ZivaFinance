@@ -1,14 +1,23 @@
 ﻿# components/loan_calculator.py
-import streamlit as st
-import pandas as pd
-import numpy as np
-import datetime as dt
-from dateutil.relativedelta import relativedelta
+from __future__ import annotations
 
+import datetime as dt
+
+import numpy as np
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import streamlit as st
+from dateutil.relativedelta import relativedelta
 
-from core.db_operations import add_record_db, load_data_db, execute_query_db
+from core.db_operations import load_data_db, execute_query_db
+
+# Optional helper (won’t crash if missing)
+try:
+    from core.db_operations import add_record_db
+except ImportError:
+    add_record_db = None
+
 
 # ============================================================
 # 🔐 HELPER

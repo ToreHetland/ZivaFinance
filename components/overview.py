@@ -1,17 +1,31 @@
 # components/overview.py
-import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
+from __future__ import annotations
+
 import calendar
 import os
-from datetime import datetime, date, timedelta
+from datetime import date, datetime, timedelta
+
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
+
 from core.db_operations import load_data_db
 
-# Logic imports from our Budget Engine
-from components.budget import get_projection_data, get_budget_vs_actual, _get_balance_at_date
+# Logic imports from our Budget Engine (safe import)
+try:
+    from components.budget import get_projection_data, get_budget_vs_actual, _get_balance_at_date
+except ImportError:
+    get_projection_data = None
+    get_budget_vs_actual = None
+    _get_balance_at_date = None
+
 from config.config import format_currency, get_setting
 from core.language_manager import t, get_time_greeting
-from config.i18n import t
+
+# NOTE: avoid duplicate/competing t() imports
+# from config.i18n import t
+
+
 
 # ============================================================
 # 🎨 PREMIUM UI & ICON HELPERS

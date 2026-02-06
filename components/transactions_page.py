@@ -1,42 +1,72 @@
 # components/transactions_page.py
 from __future__ import annotations
 
-from datetime import date, timedelta, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
-import time
 import ast
 import tempfile
+import time
 
 import pandas as pd
 import streamlit as st
 from dateutil.relativedelta import relativedelta
 
-# --- OPTIONAL VOICE SUPPORT ---
+# ============================================================
+# OPTIONAL VOICE SUPPORT (streamlit-mic-recorder)
+# ============================================================
 try:
-    from streamlit_mic_recorder import mic_recorder
+    from streamlit_mic_recorder import mic_recorder  # type: ignore
     MIC_AVAILABLE = True
 except Exception:
     mic_recorder = None
     MIC_AVAILABLE = False
 
-# --- AI PARSER ---
+# ============================================================
+# AI PARSER (Gemini)
+# ============================================================
 from core.ai_parser import parse_transaction_with_gemini
 
-# --- DB OPS ---
-from core.db_operations import (
-    load_data_db,
-    add_record_db,
-    execute_query_db,
-    normalize_date_to_iso,
-    normalize_type,
-    ensure_category_exists,
-    ensure_payee_exists,
-    get_category_type,
-)
+# ============================================================
+# DB OPS (Cloud-safe imports)
+# ============================================================
+from core.db_operations import load_data_db, add_record_db, execute_query_db
 
-# --- OPTIONAL LOCAL WHISPER SUPPORT ---
+# Optional helpers: keep app running even if db_operations changes
 try:
-    import faster_whisper
+    from core.db_operations import normalize_date_to_iso
+except ImportError:
+    def normalize_date_to_iso(x):
+        return x
+
+try:
+    from core.db_operations import normalize_type
+except ImportError:
+    def normalize_type(x) -> str:
+        return (str(x).strip().lower() if x is not None else "")
+
+try:
+    from core.db_operations import ensure_category_exists
+except ImportError:
+    def ensure_category_exists(*args, **kwargs):
+        return None
+
+try:
+    from core.db_operations import ensure_payee_exists
+except ImportError:
+    def ensure_payee_exists(*args, **kwargs):
+        return None
+
+try:
+    from core.db_operations import get_category_type
+except ImportError:
+    def get_category_type(*args, **kwargs) -> str:
+        return "expense"
+
+# ============================================================
+# OPTIONAL LOCAL WHISPER SUPPORT (faster-whisper)
+# ============================================================
+try:
+    import faster_whisper  # type: ignore
     WHISPER_AVAILABLE = True
 except Exception:
     WHISPER_AVAILABLE = False

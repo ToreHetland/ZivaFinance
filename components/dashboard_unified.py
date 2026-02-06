@@ -1,11 +1,17 @@
-﻿import streamlit as st
+﻿from __future__ import annotations
+
 import datetime
-import uuid
 import smtplib
+import uuid
+
 import pandas as pd
+import streamlit as st
 
 from core.db_operations import load_data_db, execute_query_db, get_connection
 
+# ============================================================
+# OPTIONAL EMAIL SENDER (won’t crash if missing)
+# ============================================================
 try:
     from core.db_operations import send_approval_email
 except ImportError:

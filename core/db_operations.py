@@ -550,6 +550,21 @@ def reset_password_with_token(raw_token: str, new_password: str) -> bool:
         return True
     return False
 
+__all__ = [
+    "load_data_db",
+    "execute_query_db",
+    "get_connection",
+    "normalize_date_to_iso",
+    "normalize_type",
+    "save_data_db",
+    "add_record_db",
+    "update_record_db",
+    "delete_record_db",
+    "send_approval_email",
+    "send_license_request_email",
+    "send_password_reset_email",
+]
+
 
 # ------------------------------------------------------------
 # IMPORTANT:

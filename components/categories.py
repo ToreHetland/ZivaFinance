@@ -1,16 +1,33 @@
 ﻿# components/categories.py
 from __future__ import annotations
-import streamlit as st
-import pandas as pd
+
 import numpy as np
-from core.db_operations import (
-    load_data_db,
-    save_data_db,
-    add_record_db,
-    sanitize_for_db,
-    execute_query_db
-)
+import pandas as pd
+import streamlit as st
+
 from config.i18n import t
+
+# ============================================================
+# DB OPS (Cloud-safe imports)
+# ============================================================
+from core.db_operations import load_data_db, add_record_db, execute_query_db
+
+# Optional helpers (won’t crash if missing)
+try:
+    from core.db_operations import save_data_db
+except ImportError:
+    def save_data_db(*args, **kwargs):
+        return False
+
+try:
+    from core.db_operations import sanitize_for_db
+except ImportError:
+    def sanitize_for_db(value):
+        if isinstance(value, str):
+            v = value.strip()
+            return v if v else None
+        return value
+
 
 # ============================================================
 # 🛠️ UTILS

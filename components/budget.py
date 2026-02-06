@@ -1,19 +1,21 @@
 ﻿# components/budget.py
 from __future__ import annotations
-import streamlit as st
-import pandas as pd
-from datetime import date, datetime, timedelta
-import calendar
-from dateutil.relativedelta import relativedelta
-import altair as alt
 
-from core.db_operations import (
-    load_data_db, 
-    execute_query_db, 
-    add_record_db,
-    get_connection
-)
+import calendar
+from datetime import date, datetime, timedelta
+
+import altair as alt
+import pandas as pd
+import streamlit as st
+from dateutil.relativedelta import relativedelta
+
 from config.i18n import t
+
+# ============================================================
+# DB OPS (Cloud-safe)
+# ============================================================
+from core.db_operations import load_data_db, execute_query_db, add_record_db, get_connection
+
 
 # ============================================================
 # 🛠️ DB MIGRATION

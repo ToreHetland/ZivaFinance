@@ -1,19 +1,42 @@
 ﻿# components/accounts_manager.py
 from __future__ import annotations
-import streamlit as st
-import pandas as pd
+
+from datetime import date, datetime, timedelta
+
 import numpy as np
-from datetime import datetime, date, timedelta
+import pandas as pd
+import streamlit as st
 from dateutil.relativedelta import relativedelta
-from core.db_operations import (
-    load_data_db,
-    save_data_db,
-    add_record_db,
-    sanitize_for_db,
-    execute_query_db,
-    normalize_date_to_iso,
-)
+
 from config.i18n import t
+
+# ============================================================
+# DB OPS (Cloud-safe imports)
+# ============================================================
+from core.db_operations import load_data_db, add_record_db, execute_query_db
+
+# Optional helpers (don’t crash the app if missing in db_operations.py)
+try:
+    from core.db_operations import save_data_db
+except ImportError:
+    def save_data_db(*args, **kwargs):
+        return False
+
+try:
+    from core.db_operations import sanitize_for_db
+except ImportError:
+    def sanitize_for_db(value):
+        if isinstance(value, str):
+            v = value.strip()
+            return v if v else None
+        return value
+
+try:
+    from core.db_operations import normalize_date_to_iso
+except ImportError:
+    def normalize_date_to_iso(x):
+        return x
+
 
 # ============================================================
 # CONSTANTS & HELPERS

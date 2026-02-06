@@ -1,22 +1,26 @@
 ﻿from __future__ import annotations
-import streamlit as st
-import pandas as pd
-import json
-import re
-import os
-from typing import Optional, Dict
+
 from datetime import date
+from typing import Dict, Optional
+import json
+import os
+import re
+
+import pandas as pd
+import streamlit as st
 
 from core.db_operations import load_data_db
 from config.config import format_currency, get_setting
 from config.i18n import t
-from config.i18n import t
 
-# AI Service Check
+# ============================================================
+# AI SERVICE (optional — don’t crash if missing)
+# ============================================================
 try:
-    from services.ai_services import generate_advice
-except ImportError:
+    from services.ai_services import generate_advice  # type: ignore
+except Exception:
     generate_advice = None
+
 
 # ============================================================
 # 🎨 BRANDED STRATEGIC UI
