@@ -408,7 +408,8 @@ def render_accounts_manager():
                             st.error(error_msg)
                             st.stop()
                         
-                        if save_data_db("accounts", sanitize_for_db(to_save), if_exists="replace"):
+                        # Correct way to call save_data_db in Tab 3
+                        if save_data_db("accounts", sanitize_for_db(to_save)):
                             st.success("✅ Accounts saved successfully!")
                             st.rerun()
                         else:
@@ -475,7 +476,8 @@ def render_accounts_manager():
                         "description": f"Reconciled to match bank balance of {actual_balance}",
                         "initials": "SYS"
                     }
-                    
+  # ... (Lines 1-480 remain the same) ...
+
                     if add_record_db("transactions", adjustment_record):
                         st.cache_data.clear() 
                         st.balloons()
@@ -486,134 +488,73 @@ def render_accounts_manager():
                     else:
                         st.error("Failed to create adjustment transaction.")
 
-   # TAB 5: QUICK ADD
-with tab_quick_add:
-    st.subheader("Add New Account")
+        # --- INDENTATION FIXED BELOW ---
+        # TAB 5: QUICK ADD
+        with tab_quick_add:
+            st.subheader("Add New Account")
 
-    # Ensure we always work on the active user only
-    uid = st.session_state.get("username") or "default"
+            # Ensure we always work on the active user only
+            uid = st.session_state.get("username") or "default"
 
-    # IMPORTANT: Put Account Type OUTSIDE the form so selecting "Credit Card" triggers a rerun
-    st.selectbox(
-        "Account Type*",
-        options=list(ACCOUNT_TYPE_ICONS.keys()),
-        key="qa_type"
-    )
+            # IMPORTANT: Put Account Type OUTSIDE the form so selecting "Credit Card" triggers a rerun
+            st.selectbox(
+                "Account Type*",
+                options=list(ACCOUNT_TYPE_ICONS.keys()),
+                key="qa_type"
+            )
 
-    is_cc = (st.session_state.get("qa_type") == "Credit Card")
-
-    if is_cc:
-        st.info("💳 Credit Card selected — please fill in the extra credit card settings below before saving.")
-
-    with st.form("quick_add_account_form", clear_on_submit=True):
-        col1, col2 = st.columns(2)
-        with col1:
-            st.text_input("Account Name*", placeholder="e.g., Norwegian Visa", key="qa_name")
-            st.number_input("Starting Balance*", value=0.0, format="%.2f", key="qa_bal")
-
-        with col2:
-            st.selectbox("Currency*", options=CURRENCY_OPTIONS, index=0, key="qa_curr")
-            st.checkbox("Set as default account", value=False, key="qa_def")
-            st.text_input("Description", placeholder="Optional notes", key="qa_desc")
-
-        # Credit-card-only fields
-        if is_cc:
-            st.markdown("---")
-            st.markdown("### 💳 Credit Card Settings")
-
-            c1, c2 = st.columns(2)
-            with c1:
-                st.number_input("Interest Rate (%)", value=19.5, step=0.1, key="qa_ir")
-                st.selectbox("Billing Period", ["Previous Month", "Current Month", "Custom"], key="qa_pm")
-
-            with c2:
-                default_day = 15 if "Norwegian" in (st.session_state.get("qa_name") or "") else 20
-                st.number_input(
-                    "Payment Due Day (1-31)",
-                    value=int(default_day),
-                    min_value=1,
-                    max_value=31,
-                    key="qa_dd"
-                )
-
-                # ✅ user-scoped accounts list
-                acc_df = load_data_db("accounts", user_id=uid)
-                fresh_acc_list = acc_df["name"].dropna().tolist() if acc_df is not None and not acc_df.empty else []
-                st.selectbox(
-                    "Auto-pay From (Funding Account)",
-                    options=[""] + fresh_acc_list,
-                    key="qa_src"
-                )
-
-            if st.session_state.get("qa_pm") == "Custom":
-                cs1, cs2 = st.columns(2)
-                cs1.number_input("Start Day", 1, 31, 1, key="qa_sd")
-                cs2.number_input("End Day", 1, 31, 31, key="qa_ed")
-
-        submitted = st.form_submit_button("➕ Add Account", type="primary", use_container_width=True)
-
-        if submitted:
-            final_name = (st.session_state.get("qa_name") or "").strip()
-            if not final_name:
-                st.error("Account name is required.")
-                st.stop()
-
-            # ✅ duplicate check ONLY for this user
-            df_check = load_data_db("accounts", user_id=uid)
-            if df_check is not None and not df_check.empty and final_name in df_check["name"].astype(str).values:
-                st.error(f"Account '{final_name}' already exists. Delete it in 'Edit All' if it's a mistake.")
-                st.stop()
+            is_cc = (st.session_state.get("qa_type") == "Credit Card")
 
             if is_cc:
-                ir = float(st.session_state.get("qa_ir", 19.5))
-                dd = int(st.session_state.get("qa_dd", 20))
-                src = (st.session_state.get("qa_src") or "").strip()
-                pm  = st.session_state.get("qa_pm", "Previous Month")
-                sd  = int(st.session_state.get("qa_sd", 1))
-                ed  = int(st.session_state.get("qa_ed", 31))
-            else:
-                ir, dd, src, pm, sd, ed = 0.0, 20, "", "Previous Month", 1, 31
+                st.info("💳 Credit Card selected — please fill in extra settings below.")
 
-            created_dt = datetime.now().strftime("%Y-%m-%d")
+            with st.form("quick_add_account_form", clear_on_submit=True):
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.text_input("Account Name*", placeholder="e.g., Norwegian Visa", key="qa_name")
+                    st.number_input("Starting Balance*", value=0.0, format="%.2f", key="qa_bal")
 
-            data = {
-                "name": final_name,
-                "account_type": st.session_state.get("qa_type"),
-                "balance": float(st.session_state.get("qa_bal", 0.0)),
-                "currency": st.session_state.get("qa_curr"),
-                "is_default": bool(st.session_state.get("qa_def", False)),
-                "description": (st.session_state.get("qa_desc") or "").strip(),
-                "created_date": created_dt,
-                "last_updated": created_dt,
+                with col2:
+                    st.selectbox("Currency*", options=CURRENCY_OPTIONS, index=0, key="qa_curr")
+                    st.checkbox("Set as default account", value=False, key="qa_def")
+                    st.text_input("Description", placeholder="Optional notes", key="qa_desc")
 
-                # Credit-card fields (safe even if not CC)
-                "credit_interest_rate": ir,
-                "credit_due_day": dd,
-                "credit_source_account": src,
-                "credit_period_mode": pm,
-                "credit_start_day": sd,
-                "credit_end_day": ed,
+                if is_cc:
+                    st.markdown("---")
+                    st.markdown("### 💳 Credit Card Settings")
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        st.number_input("Interest Rate (%)", value=19.5, step=0.1, key="qa_ir")
+                        st.selectbox("Billing Period", ["Previous Month", "Current Month", "Custom"], key="qa_pm")
+                    with c2:
+                        default_day = 15 if "Norwegian" in (st.session_state.get("qa_name") or "") else 20
+                        st.number_input("Payment Due Day (1-31)", value=int(default_day), min_value=1, max_value=31, key="qa_dd")
 
-                # ✅ THIS WAS MISSING
-                "user_id": uid,
-            }
+                        acc_df = load_data_db("accounts", user_id=uid)
+                        fresh_acc_list = acc_df["name"].dropna().tolist() if acc_df is not None and not acc_df.empty else []
+                        st.selectbox("Auto-pay From (Funding Account)", options=[""] + fresh_acc_list, key="qa_src")
 
-            if add_record_db("accounts", data):
-                # ✅ opening balance transaction should belong to same user
-                opening_bal = float(data["balance"] or 0.0)
-                if abs(opening_bal) > 0:
-                    add_record_db("transactions", {
-                        "date": created_dt,
-                        "type": "Income" if opening_bal > 0 else "Expense",
-                        "account": data["name"],
-                        "category": "Opening Balance",
-                        "payee": "Opening Balance",
-                        "amount": abs(opening_bal),
-                        "description": "Initial account balance",
-                        "initials": "SYS",
-                        "user_id": uid,  # ✅ THIS WAS MISSING
-                    })
+                submitted = st.form_submit_button("➕ Add Account", type="primary", use_container_width=True)
 
-                st.cache_data.clear()
-                st.success(f"✅ Added {final_name} successfully!")
-                st.rerun()
+                if submitted:
+                    final_name = (st.session_state.get("qa_name") or "").strip()
+                    if not final_name:
+                        st.error("Account name is required.")
+                    else:
+                        # Prepare data for DB
+                        data = {
+                            "name": final_name,
+                            "account_type": st.session_state.get("qa_type"),
+                            "balance": float(st.session_state.get("qa_bal", 0.0)),
+                            "currency": st.session_state.get("qa_curr"),
+                            "is_default": bool(st.session_state.get("qa_def", False)),
+                            "description": (st.session_state.get("qa_desc") or "").strip(),
+                            "created_date": datetime.now().strftime("%Y-%m-%d"),
+                            "last_updated": datetime.now().strftime("%Y-%m-%d"),
+                            "user_id": uid, # Belongs to Tore Hetland
+                        }
+                        
+                        if add_record_db("accounts", data):
+                            st.cache_data.clear()
+                            st.success(f"✅ Added {final_name}!")
+                            st.rerun()
