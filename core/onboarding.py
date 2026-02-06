@@ -244,21 +244,15 @@ def ensure_user_bootstrap(user_id: str, lang: str) -> None:
     # Try to find an existing default checking account for this user.
     # Fallback: any checking account. Fallback: any account.
     try:
-        with get_connection() as conn:
-            # A) already has a default checking
-            row = conn.execute(
-                """
-                SELECT id
-                  FROM accounts
-                 WHERE user_id = :uid
-                   AND lower(account_type) = 'checking'
-                   AND (is_default = true OR is_default = 1)
-                 LIMIT 1
-                """,
-                {"uid": user_id},
-            ).fetchone()
-            if row:
-                return
+            with get_connection() as conn:
+                # BROADEN THE CHECK: If the user has ANY account, do not create a new one.
+                row = conn.execute(
+                    "SELECT id FROM accounts WHERE user_id = :uid LIMIT 1",
+                    {"uid": user_id},
+                ).fetchone()
+                
+                if row:
+                    return # User already has data; stop the bootstrap.
 
             # B) has any checking account -> make it default if none is default
             row = conn.execute(
