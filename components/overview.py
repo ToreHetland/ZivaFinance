@@ -20,14 +20,14 @@ except ImportError:
     _get_balance_at_date = None
 
 from config.config import format_currency, get_setting
-from core.language_manager import t, get_time_greeting
+from core.language_manager import t, get_time_greeting, get_time_greeting_key
 
 # NOTE: avoid duplicate/competing t() imports
 # from config.i18n import t
 
 
 
-# ============================================================
+ ============================================================
 # 🎨 PREMIUM UI & ICON HELPERS
 # ============================================================
 
@@ -135,26 +135,10 @@ def _get_financial_snapshot():
 # ============================================================
 
 def render_overview():
-    # --- Branding (more visible on Overview) ---
-    #try:
-      #  c1, c2 = st.columns([0.85, 0.15])
-       # with c2:
-      #      st.image('assets/branding/Ziva_logo.png', use_container_width=True)
-    #except Exception:
-      #  pass
-
     data = _get_financial_snapshot()
     persona = get_setting("ai_persona", "Professional Analyst")
-    current_user = (
-        (st.session_state.get("full_name") or "").strip()
-        or (st.session_state.get("display_name") or "").strip()
-        or (st.session_state.get("username") or "").strip()
-        or "User"
-)
-
-    # get_time_greeting() already returns a translated string in your setup
-    greeting_base = get_time_greeting()
-
+    current_user = st.session_state.get("username", "User")
+    greeting_base = t(get_time_greeting_key())
     
     # --- HEADER ---
     c1, c2 = st.columns([2, 1])
