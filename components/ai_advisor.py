@@ -1,4 +1,5 @@
 ﻿from __future__ import annotations
+print("LOADED ai_advisor from:", __file__)
 
 from datetime import date
 from typing import Dict, Optional
@@ -10,8 +11,19 @@ import pandas as pd
 import streamlit as st
 
 from core.db_operations import load_data_db
-from config.config import format_currency, get_setting
-from config.i18n import t
+# --- CONFIG IMPORTS (cloud-safe) ---
+try:
+    from config.config import format_currency, get_setting  # config/config.py
+except Exception:
+    # fallback: config.py at repo root
+    from config import format_currency, get_setting  # type: ignore
+
+try:
+    from config.i18n import t  # config/i18n.py
+except Exception:
+    # fallback: i18n.py at repo root
+    from i18n import t  # type: ignore
+
 
 # ============================================================
 # AI SERVICE (optional — don’t crash if missing)
@@ -99,16 +111,72 @@ def _build_strategic_context() -> Dict:
     }
 
     if not tx.empty:
+        # --- required columns ---
+        required_cols = {"date", "type", "category", "amount"}
+        if not required_cols.issubset(set(tx.columns)):
+            return context
+
+        # --- normalize ---
+        tx = tx.copy()
         tx["date"] = pd.to_datetime(tx["date"], errors="coerce")
-        exclude = ["Transfer", "Overføring", "Overforing", "Adjustment", "Balansejustering", "Balance Adjustment"]
-        clean_tx = tx[~tx["type"].isin(exclude) & ~tx["category"].isin(exclude)]
-        
-        m_tx = clean_tx[clean_tx["date"].dt.to_period("M") == pd.Timestamp.today().to_period("M")]
-        inc = m_tx[m_tx["type"] == "Income"]["amount"].sum()
-        exp = m_tx[m_tx["type"] == "Expense"]["amount"].sum()
-        
-        context["monthly"] = {"income": float(inc), "expenses": float(exp), "disposable": float(inc - exp)}
-        context["categories"] = m_tx[m_tx["type"] == "Expense"].groupby("category")["amount"].sum().to_dict()
+        tx["amount"] = pd.to_numeric(tx["amount"], errors="coerce").fillna(0.0)
+
+        # make text safe
+        tx["type"] = tx["type"].astype(str).str.strip()
+        tx["category"] = tx["category"].astype(str).str.strip()
+
+        # --- multilingual canonical values (based on your language manager) ---
+        income_labels = {t("income").strip().lower(), "income", "inntekt", "incomes"}
+        expense_labels = {t("expense").strip().lower(), "expense", "utgift", "expenses"}
+
+        # transfers/adjustments are typically NOT part of spend/income KPIs
+        exclude_categories = {
+            "transfer", "overføring", "overforing",
+            "adjustment", "balansejustering", "balance adjustment"
+        }
+        exclude_types = {"transfer", "adjustment"}
+
+        # canonical type
+        type_lower = tx["type"].str.lower()
+        tx["type_norm"] = type_lower
+        tx.loc[type_lower.isin(income_labels), "type_norm"] = "income"
+        tx.loc[type_lower.isin(expense_labels), "type_norm"] = "expense"
+
+        # clean dataset for summary
+        clean_tx = tx[
+            tx["date"].notna()
+            & ~tx["type_norm"].isin(exclude_types)
+            & ~tx["category"].str.lower().isin(exclude_categories)
+        ].copy()
+
+        # --- current month only ---
+        this_month = pd.Timestamp.today().to_period("M")
+        m_tx = clean_tx[clean_tx["date"].dt.to_period("M") == this_month].copy()
+
+        # --- totals (expenses as absolute spend) ---
+        inc = m_tx.loc[m_tx["type_norm"] == "income", "amount"].sum()
+        exp = m_tx.loc[m_tx["type_norm"] == "expense", "amount"].sum()
+        exp = abs(exp)  # safe if expenses are stored as negative
+
+        context["monthly"] = {
+            "income": float(inc),
+            "expenses": float(exp),
+            "disposable": float(inc - exp),
+        }
+
+        # --- category breakdown (expense only) ---
+        exp_tx = m_tx[m_tx["type_norm"] == "expense"].copy()
+        if not exp_tx.empty:
+            exp_tx["amount_abs"] = exp_tx["amount"].abs()
+            context["categories"] = (
+                exp_tx.groupby("category")["amount_abs"]
+                .sum()
+                .sort_values(ascending=False)
+                .to_dict()
+            )
+        else:
+            context["categories"] = {}
+
 
     return context
 
@@ -259,3 +327,5 @@ def render_ai_advisor():
         for msg in st.session_state["ai_chat_history"]:
             with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
+
+__all__ = ["render_ai_advisor"]

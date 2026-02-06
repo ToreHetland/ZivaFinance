@@ -201,7 +201,16 @@ def render_dashboard_unified():
     from components.transactions_page import render_transactions_page
     from components.budget import render_budget
     from components.charts import render_analytics_dashboard
-    from components.ai_advisor import render_ai_advisor
+    try:
+        from components.ai_advisor import render_ai_advisor
+    except Exception as e:
+        def render_ai_advisor():
+            import streamlit as st
+            st.header("🤖 AI Advisor")
+            st.error("AI Advisor failed to load.")
+            st.code(str(e))
+
+
     from components.settings import settings as render_settings
     from components.overview import render_overview
 
