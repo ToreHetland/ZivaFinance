@@ -1,4 +1,5 @@
-﻿import streamlit as st
+# auth.py
+import streamlit as st
 import datetime
 
 from core.db_operations import (
@@ -13,105 +14,55 @@ from core.db_operations import (
     reset_password_with_token,
 )
 
-# ✅ These must exist in your project. If your module path differs,
-# change core.onboarding to the correct location.
 from core.onboarding import (
     ensure_user_bootstrap,
     should_show_opening_balance,
     opening_balance_dialog,
 )
 
-# Temporary connection test
-try:
-    from core.db_operations import get_connection
-    with get_connection() as conn:
-        conn.execute("SELECT 1")
-    st.sidebar.success("✅ Database Connected")
-except Exception as e:
-    st.sidebar.error(f"❌ Database Connection Failed: {e}")
-    
+from config.i18n import t
+
 def get_app_base_url() -> str:
     """
-    Best-effort base URL for Streamlit Cloud + local.
-    Safe fallback to "".
+    Best-effort way to get the current app URL.
+    Works locally and on Streamlit Cloud.
     """
     try:
-        # Streamlit 1.30+ internal context (works in many deployments)
+        # New Streamlit versions
         ctx = st.runtime.scriptrunner.get_script_run_ctx()
         if ctx and ctx.request:
             return f"{ctx.request.protocol}://{ctx.request.host}"
     except Exception:
         pass
 
-    # Fallback
-    return ""
-
-
-def _get_reset_token_from_query() -> str:
-    """
-    Reads reset token from URL query param ?reset=<token>
-    Supports both new (st.query_params) and old (st.experimental_get_query_params).
-    """
+    # Fallback – works in most cases
     try:
-        qp = st.query_params
-        token = qp.get("reset", "")
-        if isinstance(token, list):
-            token = token[0] if token else ""
-        return (token or "").strip()
-    except Exception:
-        pass
-
-    try:
-        qp = st.experimental_get_query_params()
-        token_list = qp.get("reset", [""])
-        return (token_list[0] or "").strip()
+        return st.experimental_get_url()
     except Exception:
         return ""
 
+# ✅ IMPORTANT: set this to your Streamlit Cloud public URL
+# Example: "https://ziva-finance.streamlit.app"
+#APP_PUBLIC_URL = "https://YOUR-APP-NAME.streamlit.app"
+
+def _get_reset_token_from_query() -> str:
+    """Support both new and old Streamlit query param APIs."""
+    try:
+        qp = st.query_params
+        return (qp.get("reset") or "").strip()
+    except Exception:
+        qp = st.experimental_get_query_params()
+        tok = (qp.get("reset", [""])[0] if qp else "")
+        return (tok or "").strip()
 
 def _clear_reset_query_param():
     try:
         st.query_params.clear()
-        return
     except Exception:
-        pass
-
-    try:
         st.experimental_set_query_params()
-    except Exception:
-        pass
-
 
 def login_screen():
-    # ---------------------------------------------------------
-    # 🎨 Login UI (Centered + Strong branding)
-    # ---------------------------------------------------------
-    st.markdown(
-        """
-        <style>
-          .ziva-auth-wrap {max-width: 460px; margin: 0 auto;}
-          .ziva-auth-card {
-            background: rgba(255,255,255,0.70);
-            border: 1px solid rgba(148,163,184,0.25);
-            border-radius: 18px;
-            padding: 18px 18px 10px 18px;
-            box-shadow: 0 10px 30px rgba(15,23,42,0.08);
-          }
-          button[data-baseweb="tab"] {padding-top: 10px; padding-bottom: 10px;}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    left, mid, right = st.columns([1, 1.2, 1])
-    with mid:
-        st.markdown('<div class="ziva-auth-wrap">', unsafe_allow_html=True)
-        try:
-            st.image("assets/branding/Ziva_logo.png", width=240)
-        except Exception:
-            st.markdown("## Ziva")
-        st.caption("Sign in to continue")
-        st.markdown('<div class="ziva-auth-card">', unsafe_allow_html=True)
+    st.title("Ziva Financial")
 
     # ---------------------------------------------------------
     # PASSWORD RESET MODE (user opens link: /?reset=<token>)
@@ -140,13 +91,6 @@ def login_screen():
                         st.error("Invalid or expired reset link.")
 
         st.caption("If your link expired, request a new reset link from the Login tab.")
-
-        # Close HTML containers before stopping
-        left, mid, right = st.columns([1, 1.2, 1])
-        with mid:
-            st.markdown("</div>", unsafe_allow_html=True)  # /ziva-auth-card
-            st.markdown("</div>", unsafe_allow_html=True)  # /ziva-auth-wrap
-
         st.stop()
 
     tab1, tab2 = st.tabs(["Login", "Register"])
@@ -166,47 +110,49 @@ def login_screen():
                     st.stop()
 
                 try:
-                    # 1. Initialize Supabase Client
-                    from config.config import get_supabase
-                    supabase = get_supabase()
+                    with get_connection() as conn:
+                        cur = conn.execute(
+                            """
+                            SELECT username, role, full_name, language, email, password_hash
+                              FROM users
+                             WHERE lower(email) = :e
+                            """,
+                            {"e": email.strip().lower()},
+                        )
+                        user = cur.fetchone()
 
-                    # 2. Attempt to sign in via Supabase Auth
-                    # This replaces the old "SELECT * FROM users" database query
-                    auth_response = supabase.auth.sign_in_with_password({
-                        "email": email,
-                        "password": password
-                    })
-                    
-                    # 3. Extract user data on success
-                    user = auth_response.user
-                    
-                    # 4. Set Session State for the rest of the app to use
-                    st.session_state["authenticated"] = True
-                    st.session_state["user"] = user
-                    st.session_state["username"] = user.id  # The Supabase UUID (unique ID)
-                    st.session_state["email"] = user.email
-                    
-                    # Fetch extra info (Metadata) if saved during registration
-                    metadata = user.user_metadata if user.user_metadata else {}
-                    st.session_state["full_name"] = metadata.get("full_name", user.email)
-                    st.session_state["language"] = metadata.get("language", "en")
-                    st.session_state["role"] = metadata.get("role", "tester")
+                    if not user:
+                        st.error("Invalid email or password.")
+                        st.stop()
 
-                    # 5. Run existing onboarding/setup logic
-                    # We pass user.id to ensure their categories/data are isolated
-                    seed_user_categories(st.session_state["username"])
-                    ensure_user_bootstrap(st.session_state["username"], st.session_state["language"])
+                    stored_hash = user[5] or ""
+                    if not verify_password(password, stored_hash):
+                        st.error("Invalid email or password.")
+                        st.stop()
 
-                    # Optional: Opening balance check
-                    if should_show_opening_balance(st.session_state["username"]):
-                        opening_balance_dialog(st.session_state["username"], st.session_state["language"])
+                    # Session
+                    st.session_state.authenticated = True
+                    st.session_state.username = user[0]                 # internal user_id
+                    st.session_state.role = user[1]
+                    st.session_state.full_name = user[2]
+                    st.session_state.language = user[3] if user[3] else "en"
+                    st.session_state.email = user[4]
 
-                    st.success(f"Welcome back, {st.session_state['full_name']}!")
+                    # Seed defaults (legacy) + new onboarding bootstrap
+                    seed_user_categories(st.session_state.username)
+                    ensure_user_bootstrap(st.session_state.username, st.session_state.language)
+
+                    # Optional opening balance (only if user has no transactions yet)
+                    if should_show_opening_balance(st.session_state.username):
+                        opening_balance_dialog(st.session_state.username, st.session_state.language)
+
+                    st.success(
+                        f"Welcome back, {st.session_state.full_name if st.session_state.full_name else st.session_state.email}!"
+                    )
                     st.rerun()
 
-                except Exception:
-                    # If Supabase returns an error (wrong password, etc.), it hits this block
-                    st.error("Invalid email or password.")
+                except Exception as e:
+                    st.error(f"Login failed: {e}")
 
         # -------------------
         # FORGOT PASSWORD (EMAIL RESET LINK)
@@ -219,12 +165,11 @@ def login_screen():
                 if not reset_email:
                     st.warning("Enter your email.")
                 else:
-                    reset_link = None  # ✅ prevents "referenced before assignment"
-
+                    # Always show generic success for privacy
                     token = create_password_reset(reset_email)
                     if token:
                         base_url = get_app_base_url()
-                        reset_link = f"{base_url}/?reset={token}" if base_url else f"?reset={token}"
+                        reset_link = f"{base_url}/?reset={token}" if base_url else None
 
                     if reset_link:
                         send_password_reset_email(reset_email, reset_link)
@@ -242,6 +187,7 @@ def login_screen():
             reg_pass = st.text_input("Choose Password", type="password")
             reg_pass2 = st.text_input("Repeat Password", type="password")
 
+            # ✅ Updated language list
             lang_options = {
                 "English": "en",
                 "Norwegian": "no",
@@ -254,7 +200,7 @@ def login_screen():
                 "Italian": "it",
                 "Ukrainian": "uk",
             }
-            reg_lang_name = st.selectbox("Preferred Language", options=list(lang_options.keys()), index=1)
+            reg_lang_name = st.selectbox("Preferred Language", options=list(lang_options.keys()), index=1)  # default Norwegian
             license_code = st.text_input("License Code").strip().upper()
 
             submit = st.form_submit_button("REGISTER")
@@ -275,7 +221,7 @@ def login_screen():
 
                 try:
                     with get_connection() as conn:
-                        # License must be valid + unused
+                        # 1) License must be valid + unused
                         cur = conn.execute(
                             """
                             SELECT code
@@ -289,7 +235,7 @@ def login_screen():
                             st.error("Invalid or already used License Code.")
                             st.stop()
 
-                        # Email must not exist
+                        # 2) Email must not exist
                         cur = conn.execute(
                             "SELECT username FROM users WHERE lower(email) = :e",
                             {"e": reg_email},
@@ -298,6 +244,7 @@ def login_screen():
                             st.error("An account with that email already exists.")
                             st.stop()
 
+                        # 3) Insert user with hashed password
                         pw_hash = hash_password(reg_pass)
 
                         conn.execute(
@@ -316,6 +263,7 @@ def login_screen():
                             },
                         )
 
+                        # 4) Mark license used
                         conn.execute(
                             """
                             UPDATE licenses
@@ -327,16 +275,18 @@ def login_screen():
                         )
 
                     # Session
-                    st.session_state["authenticated"] = True
-                    st.session_state["username"] = reg_username
-                    st.session_state["full_name"] = reg_full_name
-                    st.session_state["language"] = lang_code
-                    st.session_state["role"] = "tester"
-                    st.session_state["email"] = reg_email
+                    st.session_state.authenticated = True
+                    st.session_state.username = reg_username
+                    st.session_state.full_name = reg_full_name
+                    st.session_state.language = lang_code
+                    st.session_state.role = "tester"
+                    st.session_state.email = reg_email
 
+                    # Seed defaults + onboarding bootstrap
                     seed_user_categories(reg_username)
                     ensure_user_bootstrap(reg_username, lang_code)
 
+                    # Opening balance dialog on first run
                     if should_show_opening_balance(reg_username):
                         opening_balance_dialog(reg_username, lang_code)
 
@@ -376,9 +326,3 @@ def login_screen():
                             st.info("Request saved! Tore will review this in his Admin Panel.")
                     else:
                         st.warning("Please provide both your name and email.")
-
-    # Close centered auth card + wrapper
-    left, mid, right = st.columns([1, 1.2, 1])
-    with mid:
-        st.markdown("</div>", unsafe_allow_html=True)  # /ziva-auth-card
-        st.markdown("</div>", unsafe_allow_html=True)  # /ziva-auth-wrap

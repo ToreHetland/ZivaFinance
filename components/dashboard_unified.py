@@ -3,10 +3,20 @@ import datetime
 import uuid
 import smtplib
 import pandas as pd
-from core.db_operations import load_data_db, execute_query_db, get_connection, send_approval_email
+
+from core.db_operations import load_data_db, execute_query_db, get_connection
+
+try:
+    from core.db_operations import send_approval_email
+except ImportError:
+    def send_approval_email(*args, **kwargs):
+        return False
+
 from core.language_manager import t, get_time_greeting
 from utils.ziva_theme import apply_ziva_theme
 from components.ui_enhancements import render_ziva_brand_header
+
+
 
 def _normalize_tab_key(tab: str) -> str:
     """Accepts legacy English values and returns the new language-neutral key."""

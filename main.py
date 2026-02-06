@@ -1,4 +1,4 @@
-﻿# main.py
+# main.py
 import os
 from datetime import datetime
 from pathlib import Path
@@ -98,7 +98,7 @@ def main() -> None:
     # 1. Initialize active_tab if it doesn't exist (First Run)
     if "active_tab" not in st.session_state:
         # If we have a legacy nav_page, use it; otherwise default to Overview
-        st.session_state["active_tab"] = st.session_state.get("nav_page", "overview")
+        st.session_state["active_tab"] = st.session_state.get("nav_page", "Overview")
 
     # 2. Sync nav_page to match active_tab
     # This ensures that when you click a button in dashboard_unified (updating active_tab),
@@ -114,16 +114,12 @@ def main() -> None:
     st.markdown(
         """
         <style>
-        /* Remove Streamlit top branding (but keep our own icon) */
-        [data-testid="stHeader"] { display: none !important; }
-        [data-testid="stToolbar"] { display: none !important; }
-        #MainMenu { visibility: hidden; }
-        footer { visibility: hidden; }
+          [data-testid="stSidebar"] { display: none !important; }
+          [data-testid="collapsedControl"] { display: none !important; }
         </style>
         """,
         unsafe_allow_html=True,
     )
-
 
     # 6. Execute Unified Dashboard
     from components.dashboard_unified import render_dashboard_unified

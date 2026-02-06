@@ -1,71 +1,113 @@
-﻿# config/config.py
+# config/config.py
+import json
 import streamlit as st
-from supabase import create_client, Client
+from pathlib import Path
 from config.i18n import t
 
 # ============================================================
-# SUPABASE CLIENT INITIALIZATION
+# GLOBAL PATHS
 # ============================================================
-
-@st.cache_resource
-def get_supabase() -> Client:
-    """Initializes the Supabase client using Streamlit secrets."""
-    url = st.secrets["SUPABASE_URL"]
-    key = st.secrets["SUPABASE_KEY"]
-    return create_client(url, key)
+CONFIG_PATH = Path("config/config.json")
+USER_SETTINGS_PATH = Path("config/user_settings.json")
 
 # ============================================================
-# USER SETTINGS (Persistent Preferences via Supabase)
+# CORE CONFIGURATION
+# ============================================================
+
+def load_config():
+    """Load static application configuration (non-user settings)."""
+    if CONFIG_PATH.exists():
+        try:
+            with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            st.error(f"Error reading config.json: {e}")
+            return {}
+    return {}
+
+def save_config(config_dict):
+    """Save static configuration to disk."""
+    try:
+        CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(CONFIG_PATH, "w", encoding="utf-8") as f:
+            json.dump(config_dict, f, indent=2)
+    except Exception as e:
+        st.error(f"Failed to save config.json: {e}")
+
+# ============================================================
+# USER SETTINGS (Persistent Preferences)
 # ============================================================
 
 def get_setting(key: str, default=None):
-    """Retrieve a user setting from the Supabase 'user_settings' table."""
+    """
+    Retrieve a user setting from session or persisted file.
+    Falls back to provided default if not found.
+    """
     if "settings" not in st.session_state:
-        st.session_state["settings"] = {}
-        
-        # If user is authenticated, fetch their settings from DB
-        if st.session_state.get("authenticated"):
+        if USER_SETTINGS_PATH.exists():
             try:
-                supabase = get_supabase()
-                user_id = st.session_state.get("username")
-                response = supabase.table("user_settings").select("settings").eq("user_id", user_id).execute()
-                if response.data:
-                    st.session_state["settings"] = response.data[0].get("settings", {})
-            except Exception as e:
-                st.error(f"Error fetching settings: {e}")
+                with open(USER_SETTINGS_PATH, "r", encoding="utf-8") as f:
+                    st.session_state["settings"] = json.load(f)
+            except Exception:
+                st.session_state["settings"] = {}
+        else:
+            st.session_state["settings"] = {}
 
     return st.session_state["settings"].get(key, default)
 
 def set_setting(key: str, value):
-    """Updates a setting in Supabase."""
+    """
+    Store a setting both in Streamlit session and JSON file.
+    Returns True on success, False otherwise.
+    """
+    # FIX: We check authentication dynamically here, or allow it for testing.
+    # If you want to strictly block non-logged in users, uncomment the next 2 lines:
+    # if not st.session_state.get("authenticated", False):
+    #     return False
+
     if "settings" not in st.session_state:
         st.session_state["settings"] = {}
-    
+
     st.session_state["settings"][key] = value
 
-    if st.session_state.get("authenticated"):
-        try:
-            supabase = get_supabase()
-            user_id = st.session_state.get("username")
-            supabase.table("user_settings").upsert({
-                "user_id": user_id,
-                "settings": st.session_state["settings"]
-            }).execute()
-            return True
-        except Exception:
-            return False
-    return True
+    try:
+        USER_SETTINGS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(USER_SETTINGS_PATH, "w", encoding="utf-8") as f:
+            json.dump(st.session_state["settings"], f, indent=2)
+        return True
+    except Exception as e:
+        st.error(f"Failed to save settings: {e}")
+        return False
 
-def load_config():
-    """Static config loader (returning empty dict for cloud compatibility)."""
-    return {}
+# ============================================================
+# CURRENCY FORMATTING
+# ============================================================
 
 def format_currency(amount: float) -> str:
-    """Formatted currency string based on saved preference."""
-    if amount is None: return "0"
+    """
+    Return formatted currency string based on saved preference.
+    Example: 1234.5 -> '1 234,50 NOK'
+    """
+    if amount is None:
+        return "0"
+
     currency = get_setting("currency", "NOK")
     try:
         formatted = f"{amount:,.2f}".replace(",", " ").replace(".", ",")
         return f"{formatted} {currency}"
     except Exception:
         return f"{amount} {currency}"
+
+# ============================================================
+# PLACEHOLDER SETTINGS LOADER FOR OTHER MODULES
+# ============================================================
+
+def get_all_settings() -> dict:
+    """Return all persisted user settings."""
+    if USER_SETTINGS_PATH.exists():
+        try:
+            with open(USER_SETTINGS_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
