@@ -145,8 +145,16 @@ def render_overview():
 
     data = _get_financial_snapshot()
     persona = get_setting("ai_persona", "Professional Analyst")
-    current_user = st.session_state.get("username", "User")
-    greeting_base = t(get_time_greeting())
+    current_user = (
+        (st.session_state.get("full_name") or "").strip()
+        or (st.session_state.get("display_name") or "").strip()
+        or (st.session_state.get("username") or "").strip()
+        or "User"
+)
+
+    # get_time_greeting() already returns a translated string in your setup
+    greeting_base = get_time_greeting()
+
     
     # --- HEADER ---
     c1, c2 = st.columns([2, 1])
