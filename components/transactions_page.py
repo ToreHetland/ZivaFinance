@@ -499,9 +499,10 @@ def render_transactions_page():
         try: st.image("assets/icons/ziva_icon.png", width=80)
         except Exception: pass
 
+        # --- Side Navigation: Accounts ---
         st.markdown("### Accounts")
         if not accounts and not loans:
-            st.sidebar.info("No accounts/loans found.") # Safe fallback
+            st.info("No accounts/loans.")
             selected_account = "Default"
         else:
             all_options = accounts + loans
@@ -509,22 +510,26 @@ def render_transactions_page():
             if st.session_state["tx_selected_account"] not in all_options:
                 st.session_state["tx_selected_account"] = all_options[0]
 
-            # FIXED: Added enumerate 'i' to guarantee unique keys even with duplicate names
+            # Use enumerate to guarantee unique keys even with duplicate names
             for i, acc in enumerate(accounts):
                 is_active = st.session_state["tx_selected_account"] == acc
                 bal = acc_balances.get(acc, 0.0)
                 label = f"🏦 {acc}\n{bal:,.0f} kr"
+                
+                # ADDED _{i} to the key to ensure it is unique
                 if st.button(label, key=f"btn_acc_{acc}_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
                     st.session_state["tx_selected_account"] = acc
                     st.rerun()
             
             if loans:
                 st.markdown("##### 📉 Loans")
-                # FIXED: Added enumerate 'i' for Loan keys as well
+                # Do the same for loans
                 for i, ln in enumerate(loans):
                     is_active = st.session_state["tx_selected_account"] == ln
                     bal = acc_balances.get(ln, 0.0)
                     label = f"🧾 {ln}\n{bal:,.0f} kr"
+                    
+                    # ADDED _{i} here as well
                     if st.button(label, key=f"btn_loan_{ln}_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
                         st.session_state["tx_selected_account"] = ln
                         st.rerun()
