@@ -478,6 +478,9 @@ def _dialog_cleanup_future(selected_account: str):
 # ============================================================
 # MAIN PAGE
 # ============================================================
+# ============================================================
+# MAIN PAGE (Updated Sidebar Section)
+# ============================================================
 def render_transactions_page():
     st.session_state.setdefault("tx_data_version", 0)
     df_all = _load_transactions(st.session_state["tx_data_version"])
@@ -498,7 +501,7 @@ def render_transactions_page():
 
         st.markdown("### Accounts")
         if not accounts and not loans:
-            st.info("No accounts/loans.")
+            st.sidebar.info("No accounts/loans found.") # Safe fallback
             selected_account = "Default"
         else:
             all_options = accounts + loans
@@ -506,25 +509,28 @@ def render_transactions_page():
             if st.session_state["tx_selected_account"] not in all_options:
                 st.session_state["tx_selected_account"] = all_options[0]
 
-            for acc in accounts:
+            # FIXED: Added enumerate 'i' to guarantee unique keys even with duplicate names
+            for i, acc in enumerate(accounts):
                 is_active = st.session_state["tx_selected_account"] == acc
                 bal = acc_balances.get(acc, 0.0)
                 label = f"🏦 {acc}\n{bal:,.0f} kr"
-                if st.button(label, key=f"btn_acc_{acc}", use_container_width=True, type="primary" if is_active else "secondary"):
+                if st.button(label, key=f"btn_acc_{acc}_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
                     st.session_state["tx_selected_account"] = acc
                     st.rerun()
             
             if loans:
                 st.markdown("##### 📉 Loans")
-                for ln in loans:
+                # FIXED: Added enumerate 'i' for Loan keys as well
+                for i, ln in enumerate(loans):
                     is_active = st.session_state["tx_selected_account"] == ln
                     bal = acc_balances.get(ln, 0.0)
                     label = f"🧾 {ln}\n{bal:,.0f} kr"
-                    if st.button(label, key=f"btn_loan_{ln}", use_container_width=True, type="primary" if is_active else "secondary"):
+                    if st.button(label, key=f"btn_loan_{ln}_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
                         st.session_state["tx_selected_account"] = ln
                         st.rerun()
 
             selected_account = st.session_state["tx_selected_account"]
+
 
         st.markdown("---")
         render_ai_smart_entry(selected_account)
