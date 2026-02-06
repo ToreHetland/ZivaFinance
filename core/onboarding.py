@@ -210,12 +210,14 @@ def ensure_user_bootstrap(user_id: str, lang: str) -> None:
     """
     Ensures the user has:
     - seeded categories in the user's language (idempotent)
-    - at least 1 account (default created)
+    - at least 1 default Checking account (idempotent)
     """
     if not user_id:
         return
 
-    # 1) Ensure categories (language-specific)
+    # ------------------------------------------------------------
+    # 1) Ensure categories (idempotent per user)
+    # ------------------------------------------------------------
     seeds = category_seed(lang)
 
     for item in seeds:
@@ -230,15 +232,83 @@ def ensure_user_bootstrap(user_id: str, lang: str) -> None:
         if parent:
             ensure_category_exists(parent, "expense", user_id=user_id)
 
-        ensure_category_exists(name, ctype, user_id=user_id)
+        ensure_category_exists(name, ctype, user_id=user_id, parent=parent)
 
-    # 2) Ensure at least one account
-    acc = load_data_db("accounts", user_id=user_id)
-    if acc is None or acc.empty:
-        currency = infer_currency_from_language(lang)
-        acc_name = default_account_name(lang)
+    # ------------------------------------------------------------
+    # 2) Ensure at least one default Checking account (idempotent)
+    #    Fix: prevent duplicate auto-created accounts
+    # ------------------------------------------------------------
+    currency = infer_currency_from_language(lang)
+    acc_name = default_account_name(lang)
 
-        add_record_db("accounts", {
+    # Try to find an existing default checking account for this user.
+    # Fallback: any checking account. Fallback: any account.
+    try:
+        with get_connection() as conn:
+            # A) already has a default checking
+            row = conn.execute(
+                """
+                SELECT id
+                  FROM accounts
+                 WHERE user_id = :uid
+                   AND lower(account_type) = 'checking'
+                   AND (is_default = true OR is_default = 1)
+                 LIMIT 1
+                """,
+                {"uid": user_id},
+            ).fetchone()
+            if row:
+                return
+
+            # B) has any checking account -> make it default if none is default
+            row = conn.execute(
+                """
+                SELECT id
+                  FROM accounts
+                 WHERE user_id = :uid
+                   AND lower(account_type) = 'checking'
+                 ORDER BY id ASC
+                 LIMIT 1
+                """,
+                {"uid": user_id},
+            ).fetchone()
+            if row:
+                conn.execute(
+                    """
+                    UPDATE accounts
+                       SET is_default = true
+                     WHERE id = :id
+                    """,
+                    {"id": row[0]},
+                )
+                return
+
+            # C) has any account at all -> make first one default
+            row = conn.execute(
+                """
+                SELECT id
+                  FROM accounts
+                 WHERE user_id = :uid
+                 ORDER BY id ASC
+                 LIMIT 1
+                """,
+                {"uid": user_id},
+            ).fetchone()
+            if row:
+                conn.execute(
+                    "UPDATE accounts SET is_default = true WHERE id = :id",
+                    {"id": row[0]},
+                )
+                return
+
+    except Exception:
+        # If DB check fails for any reason, fall back to the old safe path below
+        pass
+
+    # D) No accounts exist -> create exactly ONE onboarding account
+    add_record_db(
+        "accounts",
+        {
             "name": acc_name,
             "account_type": "Checking",
             "balance": 0,
@@ -248,7 +318,8 @@ def ensure_user_bootstrap(user_id: str, lang: str) -> None:
             "created_date": None,
             "last_updated": None,
             "user_id": user_id,
-        })
+        },
+    )
 
 
 def should_show_opening_balance(user_id: str) -> bool:
