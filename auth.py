@@ -1,7 +1,7 @@
 # auth.py
 import streamlit as st
 import datetime
-
+from pathlib import Path
 from core.db_operations import (
     get_connection,
     seed_user_categories,
@@ -61,8 +61,18 @@ def _clear_reset_query_param():
     except Exception:
         st.experimental_set_query_params()
 
+
 def login_screen():
+
+    logo_path = Path("assets/branding/Ziva_logo.png")
+
+    if logo_path.exists():
+        st.image(str(logo_path), width=220)   # adjust size if you want
+    else:
+        st.warning("Logo not found")
+
     st.title("Ziva Financial")
+
 
     # ---------------------------------------------------------
     # PASSWORD RESET MODE (user opens link: /?reset=<token>)
