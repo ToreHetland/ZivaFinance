@@ -147,8 +147,8 @@ def login_screen():
                     # --- UPDATED LOGIC END ---
 
                     # Seed defaults + onboarding using the Name as the key
-                    #seed_user_categories(st.session_state.username)
-                    #ensure_user_bootstrap(st.session_state.username, st.session_state.language)
+                    seed_user_categories(st.session_state.username)
+                    ensure_user_bootstrap(st.session_state.username, st.session_state.language)
 
                     if should_show_opening_balance(st.session_state.username):
                         opening_balance_dialog(st.session_state.username, st.session_state.language)

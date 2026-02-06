@@ -1,24 +1,26 @@
 @echo off
-:: Move to the directory where this script is located
-cd /d %~dp0
-echo --- Ziva Financial Launcher for Windows ---
 
-:: 1. Check if the Windows Virtual Environment exists
-IF NOT EXIST ".venv_win" (
-    echo [!] Windows environment not found. Creating it now...
-    python -m venv .venv_win
-    echo [!] Installing required libraries...
-    call .venv_win\Scripts\activate
-    pip install -r requirements.txt
-    pip install plotly google-genai
-    echo [!] Setup complete.
-) ELSE (
-    echo [!] Windows environment found. Activating...
-    call .venv_win\Scripts\activate
+REM 1. Define project path (change drive letter if needed)
+set PROJECT_DIR=d:\ziva
+
+REM 2. Move to project directory
+cd /d "%PROJECT_DIR%" || (
+    echo ❌ Error: Could not find project directory
+    pause
+    exit /b 1
 )
 
-:: 2. Launch the app
-echo [!] Starting Ziva...
-streamlit run main.py
+REM 3. Activate virtual environment
+IF EXIST ".venv\Scripts\activate.bat" (
+    call .venv\Scripts\activate.bat
+) ELSE (
+    echo ❌ Error: Virtual environment (.venv) not found!
+    pause
+    exit /b 1
+)
+
+REM 4. Launch Streamlit app with auto reload
+streamlit run main.py --server.runOnSave true
 
 pause
+
