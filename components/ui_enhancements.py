@@ -1,5 +1,6 @@
 ﻿# components/ui_enhancements.py
 from __future__ import annotations
+import os
 import streamlit as st
 import pandas as pd
 from typing import Optional
@@ -163,6 +164,13 @@ def create_progress_bar(
 # ============================================================
 # 🧡 ZIVA BRANDING (Logo + Icon + Page Title)
 # ============================================================
+
+
+def render_env_badge():
+    schema = os.getenv("ZIVA_DB_SCHEMA", "public")
+    if schema == "dev":
+        st.sidebar.warning("⚠️ **DEV MODE ACTIVE** (Schema: dev)")
+        st.sidebar.caption("All changes are isolated from production.")
 
 def _asset_to_base64(path: str) -> str | None:
     """Return base64 string for a local asset file, or None if missing."""

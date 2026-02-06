@@ -1,12 +1,9 @@
 # core/db_operations.py
 from __future__ import annotations
 
-print("LOADED core.db_operations from:", __file__)
-print("HAS send_approval_email:", "send_approval_email" in globals())
-
+import os  # <--- Added for Schema switching
 import datetime
 from pathlib import Path
-
 import pandas as pd
 import streamlit as st
 import secrets
@@ -14,36 +11,34 @@ import hashlib
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 from config.i18n import t
+from passlib.context import CryptContext
 
+# ============================================================
+# 0) SCHEMA CONFIGURATION (FOR DEV/PROD ISOLATION)
+# ============================================================
+# This checks the environment variable set in your start_dev.sh script.
+# Default to 'public' if the variable isn't set.
+DB_SCHEMA = os.getenv("ZIVA_DB_SCHEMA", "public")
+
+print(f"LOADED core.db_operations. Using Schema: {DB_SCHEMA}")
 
 # ============================================================
 # PASSWORD HASHING (B2C SAFE)
 # ============================================================
-
-from passlib.context import CryptContext
-
-_pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto",
-)
+_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def hash_password(password: str) -> str:
-    if not password:
-        raise ValueError("Password cannot be empty")
+    if not password: raise ValueError("Password cannot be empty")
     return _pwd_context.hash(password)
 
 def verify_password(password: str, password_hash: str) -> bool:
-    if not password or not password_hash:
-        return False
-    try:
-        return _pwd_context.verify(password, password_hash)
-    except Exception:
-        return False
+    if not password or not password_hash: return False
+    try: return _pwd_context.verify(password, password_hash)
+    except Exception: return False
 
 # ============================================================
 # 1) DATABASE CONNECTION SETUP
 # ============================================================
-
 def _get_db_url() -> tuple[str, bool]:
     db_url = None
     try:
@@ -69,7 +64,6 @@ def _get_db_url() -> tuple[str, bool]:
     is_pg = str(db_url).startswith(("postgresql://", "postgres://"))
     return db_url, is_pg
 
-
 DB_URL, IS_POSTGRES = _get_db_url()
 
 @st.cache_resource
@@ -79,8 +73,6 @@ def get_engine() -> Engine | None:
     except Exception as e:
         print(f"DB Connection Error: {e}")
         return None
-
-
 # ============================================================
 # 2) SCHEMA DEFINITION
 # ============================================================
@@ -216,34 +208,75 @@ def init_db() -> None:
         """
     }
 
-    with engine.begin() as conn:
-        for table_name, columns in tables.items():
-            conn.execute(text(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns});"))
+    # PASTE THIS NEW BLOCK:
+    try:
+        with get_connection() as conn:
+            for table_name, columns in tables.items():
+                conn.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({columns});")
+    except Exception as e:
+        print(f"❌ Init DB Error: {e}")
 
 # ============================================================
 # 3) TRANSACTION-SAFE CONNECTION WRAPPER
 # ============================================================
+import threading
+
+# Use thread-local storage. This resets automatically for every new script run.
+_db_context = threading.local()
 
 class DBConnectionWrapper:
     def __init__(self, engine: Engine):
         self.engine = engine
-        self.conn = None
-        self.tx = None
-
+        
     def __enter__(self) -> "DBConnectionWrapper":
-        self.conn = self.engine.connect()
-        self.tx = self.conn.begin()
+        # 1. Initialize nesting level for this specific thread
+        if not hasattr(_db_context, 'nesting_level'):
+            _db_context.nesting_level = 0
+            _db_context.conn = None
+            _db_context.tx = None
+
+        # 2. If nesting_level is 0, we are the 'Master' caller.
+        if _db_context.nesting_level == 0:
+            _db_context.conn = self.engine.connect()
+            
+            # --- FIXED ORDER OF OPERATIONS ---
+            # 1. Start the transaction explicitely FIRST
+            _db_context.tx = _db_context.conn.begin()
+            
+            # 2. THEN set the schema (this now runs inside the transaction safely)
+            if IS_POSTGRES:
+                _db_context.conn.execute(text(f"SET search_path TO {DB_SCHEMA}"))
+            # ---------------------------------
+
+        # 3. Increment level so inner functions know to just use the existing connection
+        _db_context.nesting_level += 1
+        
+        # Make the connection available to the context
+        self.conn = _db_context.conn
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
-        try:
-            if exc_type:
-                self.tx.rollback()
-            else:
-                self.tx.commit()
-        finally:
-            if self.conn:
-                self.conn.close()
+        # 1. Decrement level
+        _db_context.nesting_level -= 1
+
+        # 2. Only the Master (level 0) is allowed to commit or close
+        if _db_context.nesting_level == 0:
+            try:
+                if exc_type:
+                    # An error occurred; rollback everything
+                    if _db_context.tx:
+                        _db_context.tx.rollback()
+                else:
+                    # Success; commit the transaction
+                    if _db_context.tx:
+                        _db_context.tx.commit()
+            finally:
+                if _db_context.conn:
+                    _db_context.conn.close()
+                
+                # Clean up thread storage
+                _db_context.conn = None
+                _db_context.tx = None
 
     def execute(self, query: str, params: dict | list | None = None):
         stmt = text(query) if isinstance(query, str) else query
@@ -258,6 +291,7 @@ def get_connection() -> DBConnectionWrapper:
 def execute_query_db(query: str, params: dict | None = None, fetch_result: bool = False) -> bool | list:
     """
     Executes a query. If fetch_result=True, returns list of dicts.
+    Safe to use inside nested transactions.
     """
     try:
         with get_connection() as conn:
@@ -268,7 +302,6 @@ def execute_query_db(query: str, params: dict | None = None, fetch_result: bool 
     except Exception as e:
         print(f"Execute Query Failed: {e}")
         return False if not fetch_result else []
-
 # ============================================================
 # 4) CRUD HELPERS
 # ============================================================
