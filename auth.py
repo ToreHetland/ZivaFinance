@@ -67,11 +67,11 @@ def login_screen():
     logo_path = Path("assets/branding/Ziva_logo.png")
 
     if logo_path.exists():
-        st.image(str(logo_path), width=220)   # adjust size if you want
+        st.image(str(logo_path), width=440)   # adjust size if you want
     else:
         st.warning("Logo not found")
 
-    st.title("Ziva Financial")
+    #st.title("Ziva Financial")
 
 
     # ---------------------------------------------------------
