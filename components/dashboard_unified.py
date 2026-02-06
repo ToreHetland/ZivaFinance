@@ -95,15 +95,34 @@ def render_admin_panel():
             st.info("No users registered yet.")
 
     with t2:
-        st.subheader("Available Licenses")
-        licenses = load_data_db("licenses")
-        st.dataframe(licenses, use_container_width=True)
-        
-        if st.button("Generate New License Code", use_container_width=True): 
-            new_code = str(uuid.uuid4())[:8].upper()
-            execute_query_db("INSERT INTO licenses (code, is_used) VALUES (:c, 0)", {"c": new_code})
-            st.success(f"Generated: {new_code}")
-            st.rerun()
+            st.subheader("Available Licenses")
+            
+            # 1. Fetch data
+            licenses = load_data_db("licenses")
+            
+            # 2. Show a quick summary
+            if not licenses.empty:
+                # Use 'is_used == False' for Postgres/Supabase compatibility
+                unused_count = len(licenses[licenses['is_used'] == False])
+                st.metric("Unused Keys Available", unused_count)
+                st.dataframe(licenses, use_container_width=True)
+            else:
+                st.info("No licenses found in the database.")
+            
+            # 3. FIXED SQL: Use 'false' instead of '0' for Postgres compatibility
+            if st.button("🚀 Generate New License Code", use_container_width=True, type="primary"): 
+                new_code = f"ZIVA-{str(uuid.uuid4())[:8].upper()}"
+                try:
+                    execute_query_db(
+                        "INSERT INTO licenses (code, is_used) VALUES (:c, false)", 
+                        {"c": new_code}
+                    )
+                    st.success(f"Successfully generated: {new_code}")
+                    # Short delay to let the DB catch up
+                    time.sleep(0.5)
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Failed to generate license: {e}")
 
     with t3:
         st.subheader("New Access Requests")
